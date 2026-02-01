@@ -77,6 +77,16 @@ function ScrollVelocityRowImpl({
     const block = blockRef.current;
     if (!container || !block) return;
 
+    // Throttle updateSizes to avoid excessive calls
+    let resizeTimeout = null;
+    const throttledUpdateSizes = () => {
+      if (resizeTimeout) return;
+      resizeTimeout = setTimeout(() => {
+        updateSizes();
+        resizeTimeout = null;
+      }, 100);
+    };
+
     const updateSizes = () => {
       const cw = container.offsetWidth || 0;
       const bw = block.scrollWidth || 0;
@@ -87,7 +97,7 @@ function ScrollVelocityRowImpl({
 
     updateSizes();
 
-    const ro = new ResizeObserver(updateSizes);
+    const ro = new ResizeObserver(throttledUpdateSizes);
     ro.observe(container);
     ro.observe(block);
 
@@ -98,6 +108,7 @@ function ScrollVelocityRowImpl({
 
     return () => {
       ro.disconnect();
+      if (resizeTimeout) clearTimeout(resizeTimeout);
       io.disconnect();
     };
   }, [children, unitWidth]);

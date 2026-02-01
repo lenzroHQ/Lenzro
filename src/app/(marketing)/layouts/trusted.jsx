@@ -33,13 +33,13 @@ const Trusted = () => {
             {solutions.map((item, idx) => (
               <motion.div
                 key={idx}
-                className="relative h-[14vh] flex items-center justify-center mx-6 group"
+                className="relative h-[14vh] flex items-center justify-center mx-6 group will-change-transform"
                 whileHover="hover"
                 initial="initial"
               >
                 {/* Animated overlay */}
                 <motion.div
-                  className="absolute bottom-0 left-0 w-full opacity-10 z-10"
+                  className="absolute bottom-0 left-0 w-full opacity-10 z-10 will-change-transform"
                   variants={{
                     hover: { height: "100%" },
                     initial: { height: 0 },
@@ -53,6 +53,7 @@ const Trusted = () => {
                   alt="logo"
                   className="relative z-20 object-contain transition-all duration-500 dark:invert dark:filter h-10 w-25 group-hover:brightness-125"
                   src={item.icon}
+                  style={{ willChange: "transform, opacity" }}
                 />
               </motion.div>
             ))}

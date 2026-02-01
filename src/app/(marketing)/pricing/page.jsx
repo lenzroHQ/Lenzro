@@ -148,7 +148,7 @@ const Pricing = () => {
 
   // Pricing toggle (monthly/yearly)
   return (
-    <div className="pt-25 px-5 flex relative flex-col gap-10 items-center min-h-screen">
+    <div className="pt-25 px-5 flex relative flex-col gap-10 items-center">
       <div className="flex flex-col relative items-center justify-center gap-5">
         <div className="text-center  space-y-2 w-full">
           <h1 className=" text-3xl md:text-4xl lg:text-5xl">

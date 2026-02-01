@@ -11,6 +11,7 @@ import React from "react";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -99,7 +100,15 @@ const FAQ = () => {
       <div className="flex flex-col gap-6 items-center justify-center">
         <div className="flex flex-col gap-2 items-center text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-center leading-tight">
-            Frequently Asked <AuroraText>Questions</AuroraText>
+            Frequently Asked{" "}
+            <AnimatedGradientText
+              speed={2}
+              colorFrom="#4ade80"
+              colorTo="#06b6d4"
+              className="font-semibold tracking-tight"
+            >
+              Questions
+            </AnimatedGradientText>
           </h2>
           <p className=" text-xs md:text-sm">
             Find all your doubts and questions in one place. Still couldn&apos;t
@@ -108,7 +117,10 @@ const FAQ = () => {
           </p>
         </div>
         <div className="flex gap-5 items-center justify-center ">
-          <Button variant="ghost" className="md:w-full px-5 py-2 text-sm h-10 rounded-sm cursor-pointer transition-all duration-300 border">
+          <Button
+            variant="ghost"
+            className="md:w-full px-5 py-2 text-sm h-10 rounded-sm cursor-pointer transition-all duration-300 border"
+          >
             View Docs
           </Button>
           <Button className="md:w-full px-5 py-2 text-sm h-10 rounded-sm cursor-pointer transition-all duration-300 border">

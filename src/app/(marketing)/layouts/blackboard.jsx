@@ -1,20 +1,25 @@
-import { AuroraText } from '@/components/ui/aurora-text';
-import { HeroVideoDialog } from '@/components/ui/hero-video-dialog';
-import React from 'react'
-
-
+import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
+import { AuroraText } from "@/components/ui/aurora-text";
+import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
+import React from "react";
 
 const BlackBoard = () => {
-
-
   return (
     <div className="px-10 flex flex-col gap-10">
       <div>
         <h1 className="text-xl md:text-3xl uppercase lg:text-4xl text-center">
-          Introducing <AuroraText>The BlackBoard</AuroraText>
+          Introducing{" "}
+          <AnimatedGradientText
+            speed={2}
+            colorFrom="#4ade80"
+            colorTo="#06b6d4"
+            className="font-semibold tracking-tight"
+          >
+            The BlackBoard
+          </AnimatedGradientText>
         </h1>
       </div>
-      <div className='md:px-10'>
+      <div className="md:px-10">
         <HeroVideoDialog
           className="block dark:hidden"
           animationStyle="from-center"
@@ -32,6 +37,6 @@ const BlackBoard = () => {
       </div>
     </div>
   );
-}
+};
 
-export default BlackBoard
+export default BlackBoard;

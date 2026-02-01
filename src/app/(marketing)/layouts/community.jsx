@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { SlackIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Marquee } from "@/components/ui/marquee";
+import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 
 const Community = () => {
   const avatars = [
@@ -209,7 +210,14 @@ const Community = () => {
       </div>
       <h2 className="text-xl md:text-5xl font-bold text-center leading-tight">
         Helping you Streamline your Operations <br /> and Deliver{" "}
-        <AuroraText>Faster</AuroraText>
+        <AnimatedGradientText
+          speed={2}
+          colorFrom="#4ade80"
+          colorTo="#06b6d4"
+          className="font-semibold tracking-tight"
+        >
+          Faster
+        </AnimatedGradientText>
       </h2>
 
       <div className="flex flex-col md:flex-row gap-4 w-full justify-center mb-10">
