@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 import mdx from "@next/mdx";
-
+import withPWA from "next-pwa";
 
 const withMDX = mdx({
   extension: /\.mdx?$/,
@@ -25,4 +25,11 @@ const nextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
 };
 
-export default withMDX(nextConfig);
+const pwaConfig = withPWA({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
+});
+
+export default withMDX(pwaConfig(nextConfig));

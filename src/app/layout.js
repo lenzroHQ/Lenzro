@@ -18,6 +18,16 @@ export const metadata = {
   title: "Lenzro",
   description: "The operating system for modern businesses and startups",
   metadataBase: new URL("https://lenzro.com/"),
+  manifest: "/manifest.json",
+  themeColor: "#000000",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Lenzro",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     title: "Lenzro",
     description: "The operating system for modern businesses and startups",
@@ -51,6 +61,18 @@ export default function RootLayout({ children }) {
       className={`${mplusone.variable} ${outifit.variable} antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <link
+          rel="icon"
+          href="https://1j8rp7fkdq62hja2.public.blob.vercel-storage.com/Plugin%20icon%20-%202%20%281%29.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="https://1j8rp7fkdq62hja2.public.blob.vercel-storage.com/Plugin%20icon%20-%202%20%281%29.png"
+        />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+      </head>
       <body>
         <ThemeProvider
           attribute="class"
