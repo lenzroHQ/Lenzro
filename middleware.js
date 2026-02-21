@@ -2,17 +2,20 @@ import { NextResponse } from "next/server";
 
 export function middleware(req) {
   const session = req.cookies.get("lenzro-session");
+  const { pathname } = req.nextUrl;
 
-  const isAppRoute = req.nextUrl.pathname.startsWith("/app");
-  const isAuthRoute = req.nextUrl.pathname.startsWith("/login");
+  // Block marketing and root for logged-in users
+  if (session && (pathname === "/" || pathname.startsWith("/(marketing)"))) {
+    return NextResponse.redirect(new URL("/client", req.url));
+  }
 
-  // If user not logged in, block app
-  if (!session && isAppRoute) {
+  // Block /client for logged-out users
+  if (!session && pathname.startsWith("/client")) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  // If user already logged in, block login page
-  if (session && isAuthRoute) {
-    return NextResponse.redirect(new URL("/app", req.url));
+  // Block /auth for logged-in users
+  if (session && pathname.startsWith("/auth")) {
+    return NextResponse.redirect(new URL("/client", req.url));
   }
 }

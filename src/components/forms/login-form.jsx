@@ -12,6 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { signIn, signInWithGoogle } from "@/lib/auth";
 import { Eye, EyeOff } from "lucide-react";
 import { toast, Toaster } from "sonner";
@@ -21,6 +23,7 @@ export function LoginForm({ className, ...props }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   // Map Firebase error codes to user-friendly messages
   function getFriendlyError(error) {
@@ -39,13 +42,29 @@ export function LoginForm({ className, ...props }) {
     }
   }
 
+  // Helper to set session cookie
+  async function setSessionCookie(user) {
+    await fetch("/api/auth/session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user }),
+    });
+  }
+
   // Handle email/password login
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await signIn(email, password);
-      // Optionally redirect or show success
+      const userCredential = await signIn(email, password);
+      if (userCredential && userCredential.user) {
+        window.localStorage.setItem(
+          "lenzrouser",
+          JSON.stringify(userCredential.user),
+        );
+        await setSessionCookie(userCredential.user);
+      }
+      router.replace("/loading");
     } catch (err) {
       toast.error(getFriendlyError(err));
     } finally {
@@ -57,8 +76,15 @@ export function LoginForm({ className, ...props }) {
   const handleGoogle = async () => {
     setLoading(true);
     try {
-      await signInWithGoogle();
-      // Optionally redirect or show success
+      const userCredential = await signInWithGoogle();
+      if (userCredential && userCredential.user) {
+        window.localStorage.setItem(
+          "lenzrouser",
+          JSON.stringify(userCredential.user),
+        );
+        await setSessionCookie(userCredential.user);
+      }
+      router.replace("/loading");
     } catch (err) {
       toast.error(getFriendlyError(err));
     } finally {
@@ -81,7 +107,6 @@ export function LoginForm({ className, ...props }) {
             Enter your business email below and login
           </p>
         </div>
-
         {/* Email */}
         <Field>
           <FieldLabel htmlFor="email" className="text-xs">
@@ -97,7 +122,6 @@ export function LoginForm({ className, ...props }) {
             disabled={loading}
           />
         </Field>
-
         {/* Password */}
         <Field>
           <div className="flex items-center">
@@ -134,20 +158,17 @@ export function LoginForm({ className, ...props }) {
             </button>
           </div>
         </Field>
-
         {/* Login button */}
         <Field>
           <Button type="submit" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </Button>
         </Field>
-
         {/* Separator */}
         <FieldSeparator className="bg-transparent">
           Or continue with
         </FieldSeparator>
-
-        {/* GitHub login */}
+        {/* Google login */}
         <Field>
           <Button
             variant="outline"
@@ -183,7 +204,6 @@ export function LoginForm({ className, ...props }) {
             </svg>
             Sign in with Google
           </Button>
-
           {/* Sign up link */}
           <FieldDescription className="text-center">
             Don&apos;t have an account?{" "}
@@ -195,7 +215,6 @@ export function LoginForm({ className, ...props }) {
             </Link>
           </FieldDescription>
         </Field>
-
         {/* Error message handled by toast (Sonner) */}
       </FieldGroup>
     </form>

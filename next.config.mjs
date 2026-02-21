@@ -1,13 +1,8 @@
 /** @type {import('next').NextConfig} */
 
-import mdx from "@next/mdx";
-import withPWA from "next-pwa";
-
-const withMDX = mdx({
-  extension: /\.mdx?$/,
-});
-
-const nextConfig = {
+/** @type {import('next').NextConfig} */
+const config = {
+  reactStrictMode: true,
   async headers() {
     return [
       {
@@ -23,13 +18,14 @@ const nextConfig = {
     ];
   },
   pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
+  async rewrites() {
+    return [
+      {
+        source: "/docs/:path*.mdx",
+        destination: "/llms.mdx/docs/:path*",
+      },
+    ];
+  },
 };
 
-const pwaConfig = withPWA({
-  dest: "public",
-  register: true,
-  skipWaiting: true,
-  disable: process.env.NODE_ENV === "development",
-});
-
-export default withMDX(pwaConfig(nextConfig));
+export default config;

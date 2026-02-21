@@ -147,20 +147,11 @@ function ScrollVelocityRowImpl({
   useAnimationFrame((_, delta) => {
     if (!isInViewRef.current || !isPageVisibleRef.current) return;
     const dt = delta / 1000;
-    const vf = velocityFactor.get();
-    const absVf = Math.min(5, Math.abs(vf));
-    const speedMultiplier = prefersReducedMotionRef.current ? 1 : 1 + absVf;
-
-    if (absVf > 0.1) {
-      const scrollDirection = vf >= 0 ? 1 : -1;
-      currentDirectionRef.current = baseDirectionRef.current * scrollDirection;
-    }
-
-    const bw = unitWidth.get() || 0;
-    if (bw <= 0) return;
-    const pixelsPerSecond = (bw * baseVelocity) / 100;
-    const moveBy =
-      currentDirectionRef.current * pixelsPerSecond * speedMultiplier * dt;
+    // Always scroll right at constant speed
+    currentDirectionRef.current = 1;
+    // Use fixed pixel speed for smooth animation
+    const fixedSpeed = 40; // px per second, adjust as needed
+    const moveBy = currentDirectionRef.current * fixedSpeed * dt;
     baseX.set(baseX.get() + moveBy);
   });
 

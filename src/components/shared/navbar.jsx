@@ -80,6 +80,21 @@ const Navbar = () => {
                   Get Started
                 </Button>
               </Link>
+              {/* Logout button, only show if logged in */}
+              {typeof window !== "undefined" &&
+                window.localStorage.getItem("lenzrouser") && (
+                  <Button
+                    className="px-5 py-2 text-xs h-7 rounded-sm cursor-pointer transition-all duration-300 border"
+                    variant="outline"
+                    onClick={async () => {
+                      window.localStorage.removeItem("lenzrouser");
+                      await fetch("/api/auth/session", { method: "DELETE" });
+                      window.location.reload();
+                    }}
+                  >
+                    Logout
+                  </Button>
+                )}
             </div>
           </div>
         </div>
