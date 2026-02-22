@@ -124,7 +124,7 @@ const LenzroAi = () => {
                 <div className="relative z-20 flex h-full w-full items-center justify-center rounded-[5px] bg-white dark:bg-neutral-900">
                   <img
                     src="https://1j8rp7fkdq62hja2.public.blob.vercel-storage.com/Plugin%20icon%20-%202%20%281%29.png"
-                    className="absolute inset-0 z-50 m-auto size-10 w-full h-full rounded-md"
+                    className="absolute inset-0 z-50 m-auto size-9 w-full h-full rounded-md"
                   />
                 </div>
               </div>
@@ -186,8 +186,10 @@ const LenzroAi = () => {
               </motion.div>
 
               {/* Input Box */}
-              <div className="relative mt-4 p-3 bg-zinc-900/50 
-               rounded-2xl">
+              <div
+                className="relative mt-4 p-3 bg-zinc-900/50 
+               rounded-2xl"
+              >
                 <div className="flex items-center gap-2 mb-2">
                   <div className="group flex items-center gap-1.5 px-2 py-0.5 bg-zinc-800 border border-zinc-700 rounded-full text-[11px] text-zinc-300 relative">
                     <FilePlus size={12} /> New page

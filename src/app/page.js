@@ -21,7 +21,7 @@ export default function Home() {
       found = !!window.localStorage.getItem("lenzrouser");
     }
     if (!found) {
-      router.replace("/marketing");
+      router.replace("/");
       return;
     }
     // If found, show loading then redirect

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
 @import "tw-animate-css";
 
 
@@ -126,6 +127,33 @@ body {
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+
+/* Target the scrollbar specifically */
+.scrollbar-pill::-webkit-scrollbar {
+  width: 6px; /* Width of the pill */
+}
+
+/* The "Track" (the background it sits on) */
+.scrollbar-pill::-webkit-scrollbar-track {
+  background: transparent; /* Makes the dark gray background disappear */
+}
+
+/* The "Thumb" (the actual pill) */
+.scrollbar-pill::-webkit-scrollbar-thumb {
+  background: #52525b; /* zinc-600 color */
+  border-radius: 100px; /* Makes it a pill shape */
+}
+
+/* Remove the arrows (buttons) */
+.scrollbar-pill::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Hover effect for the pill */
+.scrollbar-pill::-webkit-scrollbar-thumb:hover {
+  background: #71717a; /* zinc-500 color */
 }
 
 .MPlusOne{
