@@ -24,7 +24,7 @@ const GetStarted = () => {
             className="mt-1 border-zinc-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
           />
           <p className="text-[15px] leading-relaxed text-zinc-500 line-through decoration-zinc-600">
-            Create an account with Notion
+            Create an account with Lenzro
           </p>
         </div>
 

@@ -63,7 +63,7 @@ function FolderTrigger({
     <FolderHeaderPrimitive>
       <FolderTriggerPrimitive className="w-full text-start">
         <FolderHighlightPrimitive>
-          <FolderPrimitive className="flex items-center justify-between gap-2 p-2 pointer-events-none">
+          <FolderPrimitive className="flex items-center justify-between gap-2 p-1 px-2 pointer-events-none">
             <div
               className={cn(
                 'flex items-center gap-2',
@@ -73,8 +73,8 @@ function FolderTrigger({
               )}
             >
               <FolderIconPrimitive
-                closeIcon={<FolderIcon className="size-4.5" />}
-                openIcon={<FolderOpenIcon className="size-4.5" />}
+                closeIcon={<FolderIcon className="size-4" />}
+                openIcon={<FolderOpenIcon className="size-4" />}
               />
               <FileLabelPrimitive
                 className={cn('text-sm', className)}
@@ -127,7 +127,7 @@ function FileItem({
     <FileHighlightPrimitive>
       <FilePrimitive
         className={cn(
-          'flex items-center justify-between gap-2 p-2 pointer-events-none',
+          'flex items-center justify-between gap-2 p-1 px-2 pointer-events-none',
           gitStatus === 'untracked' && 'text-green-400',
           gitStatus === 'modified' && 'text-amber-400',
           gitStatus === 'deleted' && 'text-red-400',
@@ -135,7 +135,7 @@ function FileItem({
       >
         <div className="flex items-center gap-2">
           <FileIconPrimitive>
-            <Icon className="size-4.5" />
+            <Icon className="size-4" />
           </FileIconPrimitive>
           <FileLabelPrimitive className={cn('text-sm', className)} {...props}>
             {children}

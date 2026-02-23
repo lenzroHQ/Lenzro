@@ -52,7 +52,7 @@ const ClientNavbar = () => {
         .map((n) => n[0])
         .join("")
         .toUpperCase()
-    : "?";
+    : "JD";
 
   return (
     <div className="bg-black px-2 flex items-center justify-between border-b h-10 gap-2">

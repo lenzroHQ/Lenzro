@@ -50,7 +50,7 @@ export default function WorkspaceMenu() {
         ) : (
           <Button
             variant="outline"
-            className="flex items-center w-fit px-0 pr-2 gap-2 h-7 rounded-sm text-xs"
+            className="flex items-center w-fit px-1 pr-2 gap-2 h-7 rounded-sm text-xs"
           >
             <Avatar className="size-6">
               <AvatarImage
@@ -65,11 +65,11 @@ export default function WorkspaceMenu() {
                       .map((n) => n[0])
                       .join("")
                       .toUpperCase()
-                  : "?"}
+                  : "JD"}
               </AvatarFallback>
             </Avatar>
             <span className="font-medium">
-              {user.displayName ? `${user.displayName}'s Business` : "Business"}
+              {user.displayName ? `${user.displayName}'s Business` : "John Doe Business"}
             </span>
             <motion.span
               animate={{ rotate: open ? 180 : 0 }}
