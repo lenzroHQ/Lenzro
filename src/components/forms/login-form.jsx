@@ -24,69 +24,55 @@ export function LoginForm({ className, ...props }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // Map Firebase error codes to user-friendly messages
-  function getFriendlyError(error) {
-    if (!error?.code) return error?.message || "An error occurred.";
-    switch (error.code) {
-      case "auth/invalid-credential":
-      case "auth/user-not-found":
-      case "auth/wrong-password":
-        return "Invalid email or password.";
-      case "auth/too-many-requests":
-        return "Too many failed attempts. Please try again later.";
-      case "auth/popup-closed-by-user":
-        return "Google sign-in was cancelled.";
-      default:
-        return error.message || "An error occurred.";
-    }
+  // 🔐 create server session cookie
+  async function createSession(user) {
+    await fetch("/api/session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user }),
+    });
   }
 
-  // Helper to set session cookie
-  async function setSessionCookie(user) {
-    try {
-      await fetch("/api/auth/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user: { uid: user.uid, email: user.email } }),
-      });
-    } catch (err) {
-      console.error("Failed to set session cookie", err);
-      throw new Error("Session verification failed. Please try again.");
-    }
-  }
-
-  // Handle email/password login
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+
     setLoading(true);
+
     try {
-      const userCredential = await signIn(email, password);
-      if (userCredential && userCredential.user) {
-        // Set the cookie so Middleware knows we are logged in
-        await setSessionCookie(userCredential.user);
-        // Redirect to loading first, then app
-        router.replace("/loading");
-      }
+      const user = await signIn(email, password);
+
+      // create HttpOnly cookie session
+      await createSession(user);
+
+      toast.success("Welcome back!");
+      router.push("/client"); // ← your protected area
     } catch (err) {
-      toast.error(getFriendlyError(err));
+      toast.error(err.message || "Login failed");
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle Google login
   const handleGoogle = async () => {
+    if (loading) return;
+
     setLoading(true);
+
     try {
-      const userCredential = await signInWithGoogle();
-      if (userCredential && userCredential.user) {
-        // Set the cookie so Middleware knows we are logged in
-        await setSessionCookie(userCredential.user);
-        router.replace("/loading");
+      const user = await signInWithGoogle();
+
+      // Popup success returns user
+      if (user) {
+        await createSession(user);
+        toast.success("Logged in with Google");
+        router.push("/client");
       }
+      // Redirect flow handled on return page
     } catch (err) {
-      toast.error(getFriendlyError(err));
-    } finally {
+      toast.error(err.message || "Google login failed");
       setLoading(false);
     }
   };
@@ -106,6 +92,7 @@ export function LoginForm({ className, ...props }) {
             Enter your business email below and login
           </p>
         </div>
+
         {/* Email */}
         <Field>
           <FieldLabel htmlFor="email" className="text-xs">
@@ -121,6 +108,7 @@ export function LoginForm({ className, ...props }) {
             disabled={loading}
           />
         </Field>
+
         {/* Password */}
         <Field>
           <div className="flex items-center">
@@ -134,6 +122,7 @@ export function LoginForm({ className, ...props }) {
               Forgot your password?
             </Link>
           </div>
+
           <div className="relative">
             <Input
               id="password"
@@ -145,6 +134,7 @@ export function LoginForm({ className, ...props }) {
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
             />
+
             <button
               type="button"
               tabIndex={-1}
@@ -157,16 +147,19 @@ export function LoginForm({ className, ...props }) {
             </button>
           </div>
         </Field>
+
         {/* Login button */}
         <Field>
           <Button type="submit" disabled={loading}>
             {loading ? "Logging in..." : "login "}
           </Button>
         </Field>
+
         {/* Separator */}
         <FieldSeparator className="bg-transparent">
           Or continue with
         </FieldSeparator>
+
         {/* Google login */}
         <Field>
           <Button
@@ -203,7 +196,7 @@ export function LoginForm({ className, ...props }) {
             </svg>
             Sign in with Google
           </Button>
-          {/* Sign up link */}
+
           <FieldDescription className="text-center">
             Don&apos;t have an account?{" "}
             <Link
@@ -214,7 +207,6 @@ export function LoginForm({ className, ...props }) {
             </Link>
           </FieldDescription>
         </Field>
-        {/* Error message handled by toast (Sonner) */}
       </FieldGroup>
     </form>
   );
