@@ -1,56 +1,34 @@
+// src/lib/useAuth.js
 "use client";
 
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/lib/firebase";
-import { getUserProfile } from "@/lib/user"; // Firestore user fetch
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
-function mapFirebaseUser(user) {
-  if (!user) return null;
-
-  return {
-    id: user.uid,
-    email: user.email,
-    name: user.displayName,
-    photo: user.photoURL,
-    provider: user.providerData?.[0]?.providerId || "password",
-  };
-}
-
-export function useAuth() {
-  const [user, setUser] = useState(null); // lenzroUser
-  const [loading, setLoading] = useState(true);
+export const useAuth = () => {
+  const [lenzrouser, setLenzrouser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (!firebaseUser) {
-        setUser(null);
-        setLoading(false);
-        return;
-      }
+    // Try to get user from localStorage
+    const storedUser = localStorage.getItem("lenzrouser");
+    const cookieUser = Cookies.get("lenzrouser");
 
+    if (storedUser && cookieUser) {
       try {
-        const baseUser = mapFirebaseUser(firebaseUser);
-
-        // 🔥 fetch Lenzro profile (Firestore)
-        const profile = await getUserProfile(firebaseUser.uid);
-
-        const lenzroUser = {
-          ...baseUser,
-          ...profile, // role, businessId, etc
-        };
-
-        setUser(lenzroUser);
+        setLenzrouser(JSON.parse(storedUser));
       } catch (err) {
-        console.error("Failed to load user profile", err);
-        setUser(mapFirebaseUser(firebaseUser));
+        console.error("Failed to parse user from localStorage:", err);
+        setLenzrouser(null);
       }
-
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
+    } else {
+      setLenzrouser(null);
+    }
   }, []);
 
-  return { user, loading };
-}
+  const logout = () => {
+    localStorage.removeItem("lenzrouser");
+    Cookies.remove("lenzrouser");
+    setLenzrouser(null);
+  };
+
+  return { lenzrouser, logout };
+};

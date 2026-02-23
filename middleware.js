@@ -1,26 +1,19 @@
 import { NextResponse } from "next/server";
+import Cookies from "js-cookie";
 
 export function middleware(req) {
-  const session = req.cookies.get("lenzro-session")?.value;
-  const { pathname } = req.nextUrl;
+  const url = req.nextUrl.clone();
+  const cookie = req.cookies.get("lenzrouser");
 
-  const isAuth = pathname.startsWith("/auth");
-  const isClient = pathname.startsWith("/client");
-  const isRoot = pathname === "/";
-
-  // Logged in → block auth & marketing
-  if (session && (isRoot || isAuth)) {
-    return NextResponse.redirect(new URL("/client", req.url));
-  }
-
-  // Logged out → block client
-  if (!session && isClient) {
-    return NextResponse.redirect(new URL("/auth/login", req.url));
+  if (cookie && url.pathname === "/") {
+    url.pathname = "/client";
+    return NextResponse.redirect(url);
   }
 
   return NextResponse.next();
 }
 
+// Apply to these routes
 export const config = {
-  matcher: ["/", "/auth/:path*", "/client/:path*"],
+  matcher: ["/", "/client", "/loading", "/auth"],
 };

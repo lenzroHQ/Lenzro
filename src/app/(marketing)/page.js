@@ -11,30 +11,18 @@ import FAQ from "./layouts/faq";
 import LenzroDemo from "./layouts/lenzrodemo";
 
 export default function Home() {
-  const router = useRouter();
-  const [showLoading, setShowLoading] = useState(false);
+   const router = useRouter();
 
-  useEffect(() => {
-    // Check for lenzrouser in cookies or localStorage
-    let found = false;
+   useEffect(() => {
+     const userCookie = Cookies.get("lenzrouser");
+     const userLocal = localStorage.getItem("lenzrouser");
 
-    // Check cookies (ensure we are on the client side)
-    if (typeof document !== "undefined") {
-      found = document.cookie
-        .split(";")
-        .some((c) => c.trim().startsWith("lenzrouser="));
-    }
+     if (userCookie && userLocal) {
+       router.push("/client");
+     }
+   }, []);
 
-    // Check localStorage
-    if (!found && typeof window !== "undefined") {
-      found = !!window.localStorage.getItem("lenzrouser");
-    }
 
-    if (found) {
-      // If user is logged in: Navigate to loading page
-      router.replace("/loading");
-    }
-  }, [router]);
 
   // Render the Public Landing Page
   return (

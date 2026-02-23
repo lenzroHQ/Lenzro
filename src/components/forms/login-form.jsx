@@ -1,5 +1,4 @@
 "use client";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,9 +12,11 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn, signInWithGoogle } from "@/lib/auth";
+import { auth, googleProvider } from "../../lib/firebase";// keep this
+import { signInWithPopup } from "firebase/auth"; 
 import { Eye, EyeOff } from "lucide-react";
 import { toast, Toaster } from "sonner";
+import Cookies from "js-cookie";
 
 export function LoginForm({ className, ...props }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,55 +25,57 @@ export function LoginForm({ className, ...props }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // 🔐 create server session cookie
-  async function createSession(user) {
-    await fetch("/api/session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user }),
-    });
-  }
-
+  // Handle Email/Password Login (optional for MVP)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loading) return;
-
     setLoading(true);
 
     try {
-      const user = await signIn(email, password);
+      // For MVP, just mock login or integrate Firebase Email/Password if needed
+      if (!email || !password) {
+        toast.error("Email and password required");
+        setLoading(false);
+        return;
+      }
 
-      // create HttpOnly cookie session
-      await createSession(user);
+      // Mock success login (replace with Firebase Email login if needed)
+      localStorage.setItem(
+        "lenzrouser",
+        JSON.stringify({ email, displayName: email.split("@")[0] }),
+      );
+      Cookies.set("lenzrouser", email, { expires: 7 });
 
-      toast.success("Welcome back!");
-      router.push("/client"); // ← your protected area
+      router.push("/loading");
     } catch (err) {
-      toast.error(err.message || "Login failed");
+      console.error(err);
+      toast.error("Login failed");
     } finally {
       setLoading(false);
     }
   };
 
+  // Google Login
   const handleGoogle = async () => {
-    if (loading) return;
-
     setLoading(true);
-
     try {
-      const user = await signInWithGoogle();
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
 
-      // Popup success returns user
-      if (user) {
-        await createSession(user);
-        toast.success("Logged in with Google");
-        router.push("/client");
-      }
-      // Redirect flow handled on return page
+      localStorage.setItem(
+        "lenzrouser",
+        JSON.stringify({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+        }),
+      );
+      Cookies.set("lenzrouser", user.uid, { expires: 7 });
+
+      router.push("/loading");
     } catch (err) {
-      toast.error(err.message || "Google login failed");
+      console.error("Google login error:", err);
+      toast.error("Google login failed");
+    } finally {
       setLoading(false);
     }
   };

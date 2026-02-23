@@ -12,8 +12,9 @@ const Loading = () => {
     return () => clearTimeout(timeout);
   }, [router]);
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <Spinner className="size-4" />
+    <div className="min-h-screen flex items-center gap-2 justify-center">
+      <Spinner className="size-4 text-zinc-400" />
+      <p className="text-sm text-zinc-400">Redirecting to your workspace</p>
     </div>
   );
 };
