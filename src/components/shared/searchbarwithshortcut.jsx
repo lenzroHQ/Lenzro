@@ -165,9 +165,10 @@ export function SearchBarWithShortcut({ mobileTrigger = false }) {
       <div className="hidden lg:block">
         <CommandDialog open={desktopOpen} onOpenChange={setDesktopOpen}>
           {/* Custom header with tags and Esc only */}
-          <div className="flex items-center justify-between px-4 pt-4 pb-2 border-b">
+          <div className="flex items-center justify-between  px-4 pt-4 pb-2 border-b">
             <div className="flex gap-2 text-xs font-medium text-muted-foreground">
-              <span className="rounded bg-muted px-2 py-1">
+              <span className="rounded
+               px-2 py-1">
                 Search our Documentation
               </span>
             </div>
