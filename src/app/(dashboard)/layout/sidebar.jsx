@@ -30,6 +30,9 @@ import {
   RefreshCcw,
   ArrowUpRight,
   PanelLeft,
+  Search,
+  ListFilter,
+  ChevronsLeft,
 } from "lucide-react";
 
 // Radix Files Components
@@ -41,6 +44,8 @@ import {
   Files,
   SubFiles,
 } from "@/components/animate-ui/components/radix/files";
+
+import {motion} from 'framer-motion'
 
 // Shadcn UI Components
 import {
@@ -65,15 +70,19 @@ const Separator = () => <div className="h-px bg-zinc-800/60 mx-2 my-2" />;
 
 const Sidebar = () => {
   // Set default active page to 'Get Started' if on /client route, else 'Dashboard'
-  let defaultActive = "Dashboard";
+  let defaultActive = "Get Started";
   if (typeof window !== "undefined" && window.location.pathname === "/client") {
     defaultActive = "Get Started";
   }
   const [activeItem, setActiveItem] = useState(defaultActive);
 
+   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+
   return (
     <TooltipProvider delayDuration={0}>
       <aside className="w-60 rounded-xl flex flex-col border border-zinc-800 bg-black text-white py-3 px-2 max-h-[92vh] overflow-y-auto scrollbar-pill">
+
+
         {/* SECTION: Pages */}
         <SidebarSection title="Pages" showPlus defaultOpen={true}>
           <SidebarRow
