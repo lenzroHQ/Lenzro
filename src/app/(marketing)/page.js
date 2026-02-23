@@ -1,43 +1,44 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Hero from "./layouts/hero";
-import Trusted from "./layouts/trusted";
-import Tour from "./layouts/tour";
-import Solutions from "./layouts/solutions";
-import BlackBoard from "./layouts/blackboard";
-import Community from "./layouts/community";
-import FAQ from "./layouts/faq";
-import LenzroDemo from "./layouts/lenzrodemo";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function Home() {
   const router = useRouter();
-  const [checking, setChecking] = useState(true);
+  const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
-    const lenzrouser = localStorage.getItem("lenzrouser");
-    if (lenzrouser) {
-      router.replace("/client");
-    } else {
-      setChecking(false);
+    // Check for lenzrouser in cookies or localStorage
+    let found = false;
+    // Check cookies
+    if (typeof document !== "undefined") {
+      found = document.cookie
+        .split(";")
+        .some((c) => c.trim().startsWith("lenzrouser="));
     }
+    // Check localStorage
+    if (!found && typeof window !== "undefined") {
+      found = !!window.localStorage.getItem("lenzrouser");
+    }
+    if (!found) {
+      router.replace("/");
+      return;
+    }
+    // If found, show loading then redirect
+    setShowLoading(true);
+    const timeout = setTimeout(() => {
+      router.replace("/client");
+    }, 1500);
+    return () => clearTimeout(timeout);
   }, [router]);
 
-  if (checking) {
-    return null;
+  if (showLoading) {
+    // Use Spinner component (no navbar/footer)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Spinner className="!w-2 text-primary" />
+      </div>
+    );
   }
-
-  // Public landing page content here
-  return (
-    <div className="pt-10 flex flex-col gap-10 md:gap-14">
-      <Hero />
-      <Trusted />
-      <Tour />
-      <Solutions />
-      <BlackBoard />
-      <Community />
-      <FAQ />
-      <LenzroDemo />
-    </div>
-  );
+  return null;
 }

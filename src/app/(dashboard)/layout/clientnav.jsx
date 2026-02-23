@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { CircleCheckBig } from "@/components/animate-ui/icons/circle-check-big";
-import { Star } from "@/components/animate-ui/icons/star";
 import {
   Popover,
   PopoverTrigger,
@@ -9,7 +7,7 @@ import {
 import WorkspaceMenu from "@/components/ui/workspace-menu";
 import { Button } from "@/components/ui/button";
 import SidePopover from "./sidepopover";
-import { SearchIcon } from "lucide-react";
+import { CircleCheckBig, SearchIcon } from "lucide-react";
 
 function ChevronDown({ open, className = "" }) {
   return (
@@ -61,7 +59,7 @@ const ClientNavbar = () => {
       {/* Workspace Switcher */}
       <WorkspaceMenu />
       <div className="flex items-center gap-2">
-        <CircleCheckBig className={"size-4"} animateOnHover />
+        <CircleCheckBig className={"size-4"}  />
         <SearchIcon className="size-4"/>
         {/* User Avatar Popover */}
         <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>

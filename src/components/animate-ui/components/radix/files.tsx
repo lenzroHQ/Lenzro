@@ -29,8 +29,8 @@ type FilesProps = FilesPrimitiveProps;
 
 function Files({ className, children, ...props }: FilesProps) {
   return (
-    <FilesPrimitive className={cn('px-1 py-1 w-full', className)} {...props}>
-      <FilesHighlightPrimitive className="bg-zinc-900 rounded-lg  pointer-events-none">
+    <FilesPrimitive className={cn('p-2 w-full', className)} {...props}>
+      <FilesHighlightPrimitive className="bg-accent rounded-lg pointer-events-none">
         {children}
       </FilesHighlightPrimitive>
     </FilesPrimitive>
@@ -63,7 +63,7 @@ function FolderTrigger({
     <FolderHeaderPrimitive>
       <FolderTriggerPrimitive className="w-full text-start">
         <FolderHighlightPrimitive>
-          <FolderPrimitive className="flex items-center justify-between gap-2 p-1 px-2.5 pointer-events-none">
+          <FolderPrimitive className="flex items-center justify-between gap-2 p-2 pointer-events-none">
             <div
               className={cn(
                 'flex items-center gap-2',
@@ -73,8 +73,8 @@ function FolderTrigger({
               )}
             >
               <FolderIconPrimitive
-                closeIcon={<FolderIcon className="size-4 text-gray-500" />}
-                openIcon={<FolderOpenIcon className="size-4 text-white" />}
+                closeIcon={<FolderIcon className="size-4.5" />}
+                openIcon={<FolderOpenIcon className="size-4.5" />}
               />
               <FileLabelPrimitive
                 className={cn('text-sm', className)}
@@ -127,7 +127,7 @@ function FileItem({
     <FileHighlightPrimitive>
       <FilePrimitive
         className={cn(
-          'flex items-center justify-between gap-2 p-1 px-2.5 pointer-events-none',
+          'flex items-center justify-between gap-2 p-2 pointer-events-none',
           gitStatus === 'untracked' && 'text-green-400',
           gitStatus === 'modified' && 'text-amber-400',
           gitStatus === 'deleted' && 'text-red-400',

@@ -11,9 +11,8 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 import { signIn, signInWithGoogle } from "@/lib/auth";
 import { Eye, EyeOff } from "lucide-react";
 import { toast, Toaster } from "sonner";
@@ -44,11 +43,16 @@ export function LoginForm({ className, ...props }) {
 
   // Helper to set session cookie
   async function setSessionCookie(user) {
-    await fetch("/api/auth/session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user }),
-    });
+    try {
+      await fetch("/api/auth/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user: { uid: user.uid, email: user.email } }),
+      });
+    } catch (err) {
+      console.error("Failed to set session cookie", err);
+      throw new Error("Session verification failed. Please try again.");
+    }
   }
 
   // Handle email/password login
@@ -58,13 +62,11 @@ export function LoginForm({ className, ...props }) {
     try {
       const userCredential = await signIn(email, password);
       if (userCredential && userCredential.user) {
-        window.localStorage.setItem(
-          "lenzrouser",
-          JSON.stringify(userCredential.user),
-        );
+        // Set the cookie so Middleware knows we are logged in
         await setSessionCookie(userCredential.user);
+        // Redirect to loading first, then app
+        router.replace("/loading");
       }
-      router.replace("/loading");
     } catch (err) {
       toast.error(getFriendlyError(err));
     } finally {
@@ -78,13 +80,10 @@ export function LoginForm({ className, ...props }) {
     try {
       const userCredential = await signInWithGoogle();
       if (userCredential && userCredential.user) {
-        window.localStorage.setItem(
-          "lenzrouser",
-          JSON.stringify(userCredential.user),
-        );
+        // Set the cookie so Middleware knows we are logged in
         await setSessionCookie(userCredential.user);
+        router.replace("/loading");
       }
-      router.replace("/loading");
     } catch (err) {
       toast.error(getFriendlyError(err));
     } finally {
@@ -161,7 +160,7 @@ export function LoginForm({ className, ...props }) {
         {/* Login button */}
         <Field>
           <Button type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Logging in..." : "login "}
           </Button>
         </Field>
         {/* Separator */}
