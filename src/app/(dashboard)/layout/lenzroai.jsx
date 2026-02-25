@@ -40,8 +40,8 @@ const LenzroAi = () => {
               <TooltipTrigger asChild>
                 <div
                   onClick={() => setIsOpen(true)}
-                  className="relative w-10 h-10 shrink-0 overflow-hidden rounded-full
-                  shadow-xl  cursor-pointer active:scale-95 transition-transform"
+                  className="relativ shrink-0 overflow-hidden rounded-full
+                  border-2 border-gray-900 cursor-pointer active:scale-95 transition-transform"
                 >
                     <img
                       src="https://1j8rp7fkdq62hja2.public.blob.vercel-storage.com/Plugin%20icon%20-%202%20%281%29.png"
