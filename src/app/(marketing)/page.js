@@ -9,6 +9,7 @@ import BlackBoard from "./layouts/blackboard";
 import Community from "./layouts/community";
 import FAQ from "./layouts/faq";
 import LenzroDemo from "./layouts/lenzrodemo";
+import Cookies from "js-cookie";
 
 export default function Home() {
    const router = useRouter();
