@@ -6,7 +6,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import GetStarted from "../pages/getstartedpage";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const TopBar = () => {
   return (
@@ -51,7 +55,10 @@ const TopBar = () => {
               <MoreHorizontal size={16} />
             </button>
           </TooltipTrigger>
-          <TooltipContent side="bottom" className="bg-zinc-800 text-white border-zinc-700 text-[11px] px-2 py-1">
+          <TooltipContent
+            side="bottom"
+            className="bg-zinc-800 text-white border-zinc-700 text-[11px] px-2 py-1"
+          >
             Style, elements and widgets
           </TooltipContent>
         </Tooltip>
@@ -62,9 +69,9 @@ const TopBar = () => {
 
 const Page = () => {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col max-h-[90vh] ">
       <TopBar />
-      <div className="flex-1 overflow-y-auto py-5">
+      <div className="flex-1 overflow-y-auto scrollbar-pill pt-5">
         <GetStarted />
       </div>
     </div>

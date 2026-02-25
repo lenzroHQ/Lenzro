@@ -12,9 +12,9 @@ export default function CLientLayout({ children }) {
           <ClientNavbar />
         </div>
         {/* Sidebar and Children share remainder */}
-        <div className="flex flex-row flex-1 gap-4 p-1 min-h-0">
+        <div className="flex flex-row flex-1 gap-2 p-1 min-h-0">
           <Sidebar />
-          <div className="flex-1 min-h-0 overflow-auto">{children}</div>
+          <div className="flex-1 min-h-0  rounded-md overflow-auto">{children}</div>
         </div>
       </div>
       {/* Floating AI button */}

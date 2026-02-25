@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import Cookies from "js-cookie";
 
 export function middleware(req) {
   const url = req.nextUrl.clone();

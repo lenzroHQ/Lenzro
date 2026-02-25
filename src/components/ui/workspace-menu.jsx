@@ -50,7 +50,7 @@ export default function WorkspaceMenu() {
         ) : (
           <Button
             variant="outline"
-            className="flex items-center w-fit px-1 pr-2 gap-2 h-7 rounded-sm text-xs"
+            className="flex items-center w-fit px-1 pr-2 gap-2 h-7.5 rounded-sm text-xs"
           >
             <Avatar className="size-6">
               <AvatarImage

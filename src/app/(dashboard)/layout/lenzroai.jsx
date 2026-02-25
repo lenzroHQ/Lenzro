@@ -40,17 +40,14 @@ const LenzroAi = () => {
               <TooltipTrigger asChild>
                 <div
                   onClick={() => setIsOpen(true)}
-                  className="relative w-10 h-10 shrink-0 overflow-hidden rounded-full bg-gray-200 p-px shadow-xl dark:bg-gray-900 cursor-pointer active:scale-95 transition-transform"
+                  className="relative w-10 h-10 shrink-0 overflow-hidden rounded-full
+                  shadow-xl  cursor-pointer active:scale-95 transition-transform"
                 >
-                  <div className="absolute inset-0 scale-[1] animate-spin rounded-full bg-conic [background-image:conic-gradient(at_center,transparent,var(--color-blue-500)_20%,transparent_30%)] [animation-duration:2s]"></div>
-                  <div className="via-brand absolute inset-0 scale-[1] animate-spin rounded-full bg-conic [background-image:conic-gradient(at_center,transparent,var(--color-brand)_20%,transparent_30%)] [animation-delay:1s] [animation-duration:2s]"></div>
-                  <div className="relative z-20 flex h-full w-full items-center justify-center rounded-[5px] bg-white dark:bg-neutral-900">
                     <img
                       src="https://1j8rp7fkdq62hja2.public.blob.vercel-storage.com/Plugin%20icon%20-%202%20%281%29.png"
-                      className="size-9.5 rounded-full object-contain"
+                      className="size-10 rounded-full object-contain"
                       style={{ display: "block" }}
                     />
-                  </div>
                 </div>
               </TooltipTrigger>
               <TooltipContent side="top" className="mb-2">
