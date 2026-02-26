@@ -24,9 +24,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 
-const TopBar = () => {
+const TopBar = ({ setIsCollapsed }) => {
   return (
     <div className="sticky top-0 z-20 ">
       <div className="flex items-center justify-between px-2 pb-2">
@@ -40,7 +45,7 @@ const TopBar = () => {
             <TooltipTrigger asChild>
               <button
                 className="p-1 hover:bg-zinc-800 rounded text-zinc-500 hover:text-white transition-colors"
-                onClick={""}
+                onClick={() => setIsCollapsed(true)}
               >
                 <ChevronsLeft size={16} />
               </button>
@@ -69,7 +74,7 @@ const TopBar = () => {
             </PopoverTrigger>
 
             <PopoverContent
-              className="w-72 p-1.5 shadow-2xl rounded-xl"
+              className="w-72 p-1.5 shadow-2xl bg-background rounded-xl"
               side="bottom"
               align="center"
               sideOffset={8}
@@ -155,10 +160,10 @@ const TopBar = () => {
                 />
 
                 {/* Footer Button */}
-                <button className="mt-1 w-full flex items-center justify-center gap-2 py-2 bg-zinc-800/50 hover:bg-zinc-800 rounded-lg text-xs font-semibold border border-zinc-700/50 transition-all">
+                <Button className="mt-1 w-full flex items-center justify-center gap-2 py-2  rounded-lg font-semiboldtransition-all">
                   <LayoutTemplate size={14} />
                   Templates
-                </button>
+                </Button>
               </div>
             </PopoverContent>
           </Popover>

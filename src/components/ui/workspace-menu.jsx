@@ -46,7 +46,7 @@ export default function WorkspaceMenu() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         {loading ? (
-          <Skeleton className="h-7 w-[260px] rounded-sm" />
+          <Skeleton className="h-7 w-[230px] rounded-sm" />
         ) : (
           <Button
             variant="outline"
@@ -108,10 +108,10 @@ export default function WorkspaceMenu() {
         </div>
         <Separator className="my-2" />
         <div className="flex gap-2 mb-3">
-          <Button variant="ghost" size="sm" className="flex-1 gap-1">
+          <Button variant="outline" size="sm" className="flex-1 gap-1">
             <Settings className="size-4" /> Settings
           </Button>
-          <Button variant="ghost" size="sm" className="flex-1 gap-1">
+          <Button variant="outline" size="sm" className="flex-1 gap-1">
             <Users className="size-4" /> People
           </Button>
         </div>
@@ -120,13 +120,13 @@ export default function WorkspaceMenu() {
         </div>
         <div className="flex flex-col gap-1 mb-3">
           <Button variant="ghost" size="sm" className="justify-start gap-2">
-            <AppWindow className="size-4" /> Apps
+            <AppWindow className="size-4" /> Pages
           </Button>
           <Button variant="ghost" size="sm" className="justify-start gap-2">
             <List className="size-4" /> Templates
           </Button>
           <Button variant="ghost" size="sm" className="justify-start gap-2">
-            <Zap className="size-4" /> Automations
+            <Zap className="size-4" /> Ai
           </Button>
         </div>
         <Separator className="my-2" />

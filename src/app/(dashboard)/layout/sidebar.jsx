@@ -1,302 +1,154 @@
+"use client";
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   Home,
-  Users2,
-  CreditCard,
-  Globe,
-  BarChart3,
-  Palette,
-  Star,
-  Plus,
-  Inbox,
-  LayoutGrid,
   Calendar,
-  Settings,
-  ShoppingBag,
-  Trash2,
-  ChevronDown,
+  Sparkles,
+  Users2,
+  LayoutGrid,
   MoreHorizontal,
-  FileJson,
-  EyeOff,
-  ArrowDown,
-  ArrowUp,
-  ChevronRight,
-  Hash,
-  ArrowUpDown,
-  Copy,
-  Link2,
-  PencilLine,
-  ArrowRightLeft,
-  RefreshCcw,
-  ArrowUpRight,
-  PanelLeft,
-  Search,
-  ListFilter,
-  ChevronsLeft,
+  Inbox,
+  Library,
+  FileText,
+  Plus,
+  ChevronDown,
+  ChevronsRight,
+  FolderClosed,
 } from "lucide-react";
-
-// Radix Files Components
-import {
-  FileItem,
-  FolderItem,
-  FolderTrigger,
-  FolderContent,
-  Files,
-  SubFiles,
-} from "@/components/animate-ui/components/radix/files";
-
-import { motion } from "framer-motion";
-
-// Shadcn UI Components
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-
-import SidebarSection from "./sidebar-section";
-import SidebarRow from "./sidebar-row";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import TopBar from "./topbar";
-
-// Section Separator
+import { cn } from "@/lib/utils";
 
 const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false); // Collapsed state
-  const [activeItem, setActiveItem] = useState("Dashboard");
-  // Set default active page to 'Get Started' if on /client route, else 'Dashboard'
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const toggleSidebar = () => setIsCollapsed(!isCollapsed);
 
-  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+  const mainTabs = [
+    { label: "Home", icon: <Home size={18} />, isBrand: true },
+    { label: "Inbox", icon: <Inbox size={18} /> },
+    { label: "Library", icon: <Library size={18} /> },
+    { label: "Calendar", icon: <Calendar size={18} />, noExpand: true },
+    { label: "Docs", icon: <FolderClosed size={18} /> },
+    { label: "More", icon: <MoreHorizontal size={18} /> },
+  ];
+
+  const handleTabClick = (item) => {
+    // If it's the calendar, we stay collapsed. Otherwise, we expand.
+    if (item.noExpand) {
+      setIsCollapsed(true);
+    } else {
+      setIsCollapsed(false);
+    }
+  };
 
   return (
-    <TooltipProvider delayDuration={0}>
-      <motion.aside
-        initial={false}
-        animate={{
-          width: isCollapsed ? "0px" : "240px",
-          opacity: isCollapsed ? 0 : 1,
-          marginRight: isCollapsed ? "-10px" : "0px",
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="relative h-[92vh] flex flex-col border border-zinc-800 bg-black text-white py-3 px-2 overflow-hidden rounded-xl"
+    <div className="flex h-[93vh]">
+      {/* --- ICON STRIP (The Main Sidebar) --- */}
+      <motion.div
+        layout
+        className="flex flex-col justify-between items-center w-[58px] bg-black border border-zinc-800 rounded-lg py-6 z-20"
       >
-        {isCollapsed && (
-          <motion.button
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            onClick={() => setIsCollapsed(false)}
-            className="fixed top-6 left-4 z-50 p-2 bg-zinc-900 border border-zinc-800 rounded-md text-zinc-400 hover:text-white"
+        <div className="flex flex-col items-center w-full gap-4">
+          <button
+            onClick={toggleSidebar}
+            className="text-zinc-500 hover:text-white transition-transform"
           >
-            <PanelLeft size={18} />
-          </motion.button>
-        )}
-        {/* Fixed Topbar */}
-        <TopBar onCollapse={() => setIsCollapsed(true)} />
+            <motion.div animate={{ rotate: isCollapsed ? 0 : 180 }}>
+              <ChevronsRight size={18} />
+            </motion.div>
+          </button>
 
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto scrollbar-pill">
-          {/* SECTION: Pages */}
-          <SidebarSection title="Pages" showPlus defaultOpen={true}>
-            <SidebarRow
-              icon={<Home />}
-              label="Dashboard"
-              textColor="text-cyan-500"
-              activeItem={activeItem}
-              setActiveItem={setActiveItem}
-            />
-            <SidebarRow
-              icon={<Users2 />}
-              label="Clients"
-              textColor="text-purple-500"
-              activeItem={activeItem}
-              setActiveItem={setActiveItem}
-            />
-            <SidebarRow
-              icon={<CreditCard />}
-              label="Payments"
-              textColor="text-emerald-500"
-              activeItem={activeItem}
-              setActiveItem={setActiveItem}
-            />
-            <SidebarRow
-              icon={<Globe />}
-              label="Website"
-              textColor="text-orange-500"
-              activeItem={activeItem}
-              setActiveItem={setActiveItem}
-            />
-            <SidebarRow
-              icon={<BarChart3 />}
-              label="Analytics"
-              textColor="text-red-500"
-              activeItem={activeItem}
-              setActiveItem={setActiveItem}
-            />
-            <SidebarRow
-              icon={<Palette />}
-              label="Branding"
-              textColor="text-pink-500"
-              activeItem={activeItem}
-              setActiveItem={setActiveItem}
-            />
-          </SidebarSection>
-
-          <Separator />
-
-          {/* SECTION: Favorites */}
-          <SidebarSection title="Favorites" showPlus defaultOpen={true}>
-            <SidebarRow
-              icon={<Star />}
-              label="Branding"
-              glowColor="bg-yellow-500"
-              activeItem={activeItem}
-              setActiveItem={setActiveItem}
-            />
-            <SidebarRow
-              icon={<Star />}
-              label="Get Started"
-              glowColor="bg-yellow-500"
-              activeItem={activeItem}
-              setActiveItem={setActiveItem}
-            />
-          </SidebarSection>
-
-          <Separator />
-
-          {/* SECTION: Workspace */}
-          <SidebarSection title="Workspace" showPlus={false} defaultOpen={true}>
-            <Link href={"/client/inbox"}>
-              <Button
-                className={
-                  "rounded-lg w-full flex items-center justify-start px-0 cursor-pointer text-zinc-400 gap-3"
-                }
-                variant="ghost"
+          <div className="flex flex-col items-center">
+            {mainTabs.map((item, idx) => (
+              <Link
+                key={idx}
+                href={`/client/${item.label.toLowerCase()}`}
+                onClick={() => handleTabClick(item)}
+                className="flex flex-col items-center gap-1 py-2 group cursor-pointer"
               >
-                <Inbox size={16} />
-                <span className="text-[13px] font-medium">Inbox</span>
-              </Button>
-            </Link>
-
-            <Link href={"/client/library"}>
-              <Button
-                className={
-                  "rounded-lg w-full flex items-center justify-start px-0 cursor-pointer text-zinc-400 gap-3"
-                }
-                variant="ghost"
-              >
-                <LayoutGrid size={16} />
-                <span className="text-[13px] font-medium">Library</span>
-              </Button>
-            </Link>
-
-            <Link href={"/client/calender"}>
-              <Button
-                className={
-                  "rounded-lg w-full flex items-center justify-start px-0 cursor-pointer text-zinc-400 gap-3"
-                }
-                variant="ghost"
-              >
-                <Calendar size={16} />
-                <span className="text-[13px] font-medium">Calender</span>
-              </Button>
-            </Link>
-          </SidebarSection>
-
-          <Separator />
-
-          {/* SECTION: Files Section */}
-          <SidebarSection title="Files" showPlus={true} defaultOpen={true}>
-            <div className="">
-              <Files className="w-full text-[13px]" defaultOpen={["app"]}>
-                <FolderItem value="app">
-                  <FolderTrigger className="w-full flex items-center gap-2 hover:bg-zinc-900/40 rounded  py-1 transition-colors text-zinc-400 hover:text-white">
-                    contracts
-                  </FolderTrigger>
-                  <FolderContent>
-                    <SubFiles defaultOpen={["(home)"]}>
-                      <FolderItem value="(home)">
-                        <FolderTrigger className="px-2 py-1 hover:text-white transition-colors text-zinc-500">
-                          (home)
-                        </FolderTrigger>
-                        <FolderContent>
-                          <FileItem className="pl-4 py-1 text-zinc-500 hover:text-zinc-200 cursor-pointer">
-                            page.tsx
-                          </FileItem>
-                          <FileItem className="pl-4 py-1 text-zinc-500 hover:text-zinc-200 cursor-pointer">
-                            layout.tsx
-                          </FileItem>
-                        </FolderContent>
-                      </FolderItem>
-                      <FileItem className="py-1 text-zinc-500 hover:text-zinc-200 cursor-pointer">
-                        global.css
-                      </FileItem>
-                    </SubFiles>
-                  </FolderContent>
-                </FolderItem>
-
-                <FolderItem value="components">
-                  <FolderTrigger className="w-full flex items-center gap-2 hover:bg-zinc-900/40 rounded  py-1 transition-colors text-zinc-400 hover:text-white">
-                    components
-                  </FolderTrigger>
-                  <FolderContent>
-                    <SubFiles>
-                      <FileItem className="py-1 text-zinc-500 hover:text-zinc-200 cursor-pointer">
-                        button.tsx
-                      </FileItem>
-                    </SubFiles>
-                  </FolderContent>
-                </FolderItem>
-
-                <FileItem
-                  icon={FileJson}
-                  className="py-1 text-zinc-400 hover:text-white cursor-pointer"
+                <div
+                  className={cn(
+                    "relative flex items-center justify-center w-9 h-9 rounded-xl transition-all",
+                    item.isBrand
+                      ? "bg-white text-black"
+                      : "text-zinc-400 group-hover:bg-zinc-800 group-hover:text-white",
+                  )}
                 >
-                  package.json
-                </FileItem>
-              </Files>
-            </div>
-          </SidebarSection>
-
-          <Separator />
-
-          {/* SECTION: Plain Bottom Navigation */}
-          <nav className="flex flex-col gap-1 mt-2">
-            <button
-              className={`flex items-center gap-3 px-2 py-1.5  rounded-lg transition-all text-zinc-200 font-medium text-[13px] ${activeItem === "Settings" ? "bg-zinc-800" : "hover:bg-zinc-900/60"}`}
-              onClick={() => setActiveItem("Settings")}
-            >
-              <Settings size={16} className="shrink-0" />
-              Settings
-            </button>
-            <button
-              className={`flex items-center gap-3 px-2 py-1.5  rounded-lg transition-all text-zinc-200 font-medium text-[13px] ${activeItem === "Marketplace" ? "bg-zinc-800" : "hover:bg-zinc-900/60"}`}
-              onClick={() => setActiveItem("Marketplace")}
-            >
-              <ShoppingBag size={16} className="shrink-0" />
-              Marketplace
-            </button>
-            <button
-              className={`flex items-center gap-3 px-2 py-1.5  rounded-lg transition-all text-zinc-200 font-medium text-[13px] ${activeItem === "Bin" ? "bg-zinc-800" : "hover:bg-zinc-900/60"}`}
-              onClick={() => setActiveItem("Bin")}
-            >
-              <Trash2 size={16} className="shrink-0" />
-              Trash
-            </button>
-          </nav>
+                  {item.isBrand && (
+                    <div className="absolute inset-0 -z-10 bg-blue-500/50 blur-xl rounded-full scale-150" />
+                  )}
+                  {item.icon}
+                </div>
+                <span className="text-[10px] font-medium text-zinc-500">
+                  {item.label}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
-      </motion.aside>
-    </TooltipProvider>
+      </motion.div>
+
+      {/* --- SECONDARY CONTENT PANEL --- */}
+      <AnimatePresence mode="wait">
+        {!isCollapsed && (
+          <motion.aside
+            initial={{ width: 0, opacity: 0, x: -20 }}
+            animate={{ width: 280, opacity: 1, x: 0 }}
+            exit={{ width: 0, opacity: 0, x: -20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="bg-black border border-zinc-800 rounded-md overflow-hidden flex flex-col ml-1"
+          >
+            <div className="p-4 w-[280px]">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-lg font-semibold text-white">Home</h2>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-12 bg-zinc-900 border border-zinc-800"
+                >
+                  <Plus size={14} className="mr-1" /> <ChevronDown size={12} />
+                </Button>
+              </div>
+              <div className="space-y-1">
+                <ContentRow icon={<Inbox size={16} />} label="Inbox" />
+                <ContentRow icon={<Users2 size={16} />} label="Replies" />
+                <ContentRow
+                  icon={<Sparkles size={16} />}
+                  label="AI Tasks"
+                  active
+                />
+              </div>
+              <Separator className="my-6 bg-zinc-800" />
+              <div className="px-2">
+                <h3 className="text-[11px] font-bold text-zinc-500 uppercase tracking-wider mb-4">
+                  Favorites
+                </h3>
+                <p className="text-xs text-zinc-600 italic">
+                  Click star to add favorites...
+                </p>
+              </div>
+            </div>
+          </motion.aside>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
+
+const ContentRow = ({ icon, label, active = false }) => (
+  <div
+    className={cn(
+      "flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-colors",
+      active
+        ? "bg-zinc-800 text-white"
+        : "text-zinc-400 hover:bg-zinc-900 hover:text-white",
+    )}
+  >
+    {icon}
+    <span className="text-sm font-medium">{label}</span>
+  </div>
+);
+
 export default Sidebar;
-
-
-

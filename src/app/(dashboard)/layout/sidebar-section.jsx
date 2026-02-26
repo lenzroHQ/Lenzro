@@ -1,7 +1,7 @@
 "use client"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, ChevronRight, EyeOff, Hash, MoreHorizontal, Plus } from 'lucide-react';
 import React, { useState } from 'react'
 
@@ -114,19 +114,21 @@ const SidebarSection = ({ title, children, showPlus, defaultOpen }) => {
             </PopoverContent>
           </Popover>
           {showPlus && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button className="p-1 text-zinc-500 hover:text-white hover:bg-zinc-800 rounded">
-                  <Plus size={14} />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent
-                side="right"
-                className="bg-zinc-800 text-white border-zinc-700 ml-2 text-[10px] px-2 py-1"
-              >
-                {title === "Files" ? "Add file" : "Add a page"}
-              </TooltipContent>
-            </Tooltip>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button className="p-1 text-zinc-500 hover:text-white hover:bg-zinc-800 rounded">
+                    <Plus size={14} />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent
+                  side="right"
+                  className="bg-zinc-800 text-white border-zinc-700 ml-2 text-[10px] px-2 py-1"
+                >
+                  {title === "Files" ? "Add file" : "Add a page"}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
         </div>
       </div>

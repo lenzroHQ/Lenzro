@@ -1,28 +1,53 @@
-import { ArrowRightLeft, ArrowUpRight, ChevronRight, Copy, Link2, MoreHorizontal, PanelLeft, PencilLine, Plus, RefreshCcw, Star, Trash2 } from 'lucide-react';
-import React from 'react'
+import {
+  ArrowRightLeft,
+  ArrowUpRight,
+  ChevronRight,
+  Copy,
+  Link2,
+  MoreHorizontal,
+  PanelLeft,
+  PencilLine,
+  Plus,
+  RefreshCcw,
+  Star,
+  Trash2,
+} from "lucide-react";
+import React from "react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import MenuButton from './menu-button';
+
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  TooltipProvider,
 } from "@/components/ui/tooltip";
+import Link from "next/link";
+import MenuButton from "./menu-button";
 
-const SidebarRow = ({ icon, label, textColor, activeItem, setActiveItem }) => {
+const SidebarRow = ({
+  icon,
+  label,
+  textColor,
+  activeItem,
+  setActiveItem,
+  subpageLabel,
+}) => {
   const isActive = activeItem === label;
 
+  const lowercaseLabel = label.toLowerCase();
   return (
-    <div
+    <Link
       onClick={() => setActiveItem(label)}
       className={`group/row flex items-center justify-between px-2 py-1.5 rounded-lg cursor-pointer transition-all ${
         isActive
           ? `${textColor} bg-zinc-900/40`
           : "text-zinc-400 hover:text-white hover:bg-zinc-900/60"
       }`}
+      href={`/client/${lowercaseLabel}`}
     >
       <div className="flex items-center gap-3 overflow-hidden">
         <div className="relative flex items-center justify-center h-5 w-5 shrink-0">
@@ -121,24 +146,26 @@ const SidebarRow = ({ icon, label, textColor, activeItem, setActiveItem }) => {
         </Popover>
 
         {/* ADD PAGE BUTTON */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              className="p-1 hover:bg-zinc-800 rounded text-zinc-500 hover:text-white transition-colors"
-              onClick={(e) => e.stopPropagation()}
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                className="p-1 hover:bg-zinc-800 rounded text-zinc-500 hover:text-white transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Plus size={14} />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent
+              side="right"
+              className="bg-zinc-800 text-white ml-2 border-zinc-700 text-[10px] px-2 py-1"
             >
-              <Plus size={14} />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent
-            side="right"
-            className="bg-zinc-800 text-white ml-2 border-zinc-700 text-[10px] px-2 py-1"
-          >
-            Add a page inside
-          </TooltipContent>
-        </Tooltip>
+              Add a page inside
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
-    </div>
+    </Link>
   );
 };
 

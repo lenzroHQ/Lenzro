@@ -9,6 +9,7 @@ import GetStarted from "../pages/getstartedpage";
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
@@ -35,33 +36,35 @@ const TopBar = () => {
           <ChevronDown size={12} className="mt-0.5" />
         </button>
 
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded transition-colors">
-              <Star size={16} />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent
-            side="bottom"
-            className="bg-zinc-800 text-white border-zinc-700 text-[11px] px-2 py-1"
-          >
-            Add to Favorites
-          </TooltipContent>
-        </Tooltip>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded transition-colors">
+                <Star size={16} />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent
+              side="bottom"
+              className="bg-zinc-800 text-white border-zinc-700 text-[11px] px-2 py-1"
+            >
+              Add to Favorites
+            </TooltipContent>
+          </Tooltip>
 
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded transition-colors">
-              <MoreHorizontal size={16} />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent
-            side="bottom"
-            className="bg-zinc-800 text-white border-zinc-700 text-[11px] px-2 py-1"
-          >
-            Style, elements and widgets
-          </TooltipContent>
-        </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button className="p-2 text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded transition-colors">
+                <MoreHorizontal size={16} />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent
+              side="bottom"
+              className="bg-zinc-800 text-white border-zinc-700 text-[11px] px-2 py-1"
+            >
+              Style, elements and widgets
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </div>
   );

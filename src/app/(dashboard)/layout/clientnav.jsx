@@ -159,7 +159,7 @@ const ClientNavbar = () => {
               side="bottom"
               align="end"
               sideOffset={8}
-              className="p-0  text-white  rounded-xl overflow-hidden"
+              className="p-0   text-white  rounded-xl overflow-hidden"
             >
               <SidePopover />
             </PopoverContent>

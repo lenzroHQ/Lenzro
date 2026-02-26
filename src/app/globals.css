@@ -2,7 +2,6 @@
 @plugin "tailwindcss-animate";
 @import "tw-animate-css";
 
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -128,7 +127,6 @@ body {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
-
 
 /* Target the scrollbar specifically */
 .scrollbar-pill::-webkit-scrollbar {
