@@ -46,7 +46,7 @@ export default function WorkspaceMenu() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         {loading ? (
-          <Skeleton className="h-7 w-[230px] rounded-sm" />
+          <Skeleton className="h-7 w-[230px] shadow-none rounded-sm" />
         ) : (
           <Button
             variant="outline"
@@ -83,8 +83,8 @@ export default function WorkspaceMenu() {
       </PopoverTrigger>
       <PopoverContent className="w-80 p-4 bg-background">
         <div className="flex items-center gap-3 mb-2">
-          <Avatar className="size-8">
-            <AvatarImage src={user.photoURL} alt={user.displayName} />
+          <Avatar className="size-8 rounded-md">
+            <AvatarImage className="rounded-md" src={user.photoURL} alt={user.displayName} />
             <AvatarFallback>
               {user.displayName
                 ? user.displayName

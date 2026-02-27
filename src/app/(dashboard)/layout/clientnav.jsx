@@ -74,7 +74,7 @@ const ClientNavbar = () => {
               </TooltipTrigger>
               <TooltipContent
                 side="right"
-                className="bg-zinc-800 text-white border-zinc-700 text-[11px] ml-2 px-2 py-1"
+                className="text-[11px] ml-2 px-2 py-1"
               >
                 Switch to Workspace
               </TooltipContent>
@@ -91,7 +91,7 @@ const ClientNavbar = () => {
               </TooltipTrigger>
               <TooltipContent
                 side="right"
-                className="bg-zinc-800 text-white border-zinc-700 text-[11px] ml-2 px-2 py-1"
+                className="text-[11px]  px-2 py-1"
               >
                 Switch to Blackboard
               </TooltipContent>
@@ -110,7 +110,7 @@ const ClientNavbar = () => {
             </TooltipTrigger>
             <TooltipContent
               side="bottom"
-              className="bg-zinc-800 text-white border-zinc-700 text-[11px] px-2 mt-2 py-1"
+              className=" text-[11px] px-2  py-1"
             >
               Create
             </TooltipContent>
@@ -125,7 +125,7 @@ const ClientNavbar = () => {
             </TooltipTrigger>
             <TooltipContent
               side="bottom"
-              className="bg-zinc-800 text-white border-zinc-700 text-[11px] px-2 mt-2 py-1"
+              className="text-[11px] px-2 mt-2 py-1"
             >
               Search
             </TooltipContent>

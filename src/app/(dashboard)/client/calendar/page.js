@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Settings, Video } from "lucide-react";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 
 const Calender = () => {
   return (
@@ -35,18 +36,12 @@ const Calender = () => {
           </p>
 
           <div className="pt-8 space-y-4">
-            <p className="text-zinc-500 text-xs font-medium uppercase tracking-[0.2em]">
+            <p className="text-zinc-500 text-sm font-medium">
               Get started with
             </p>
             <div className="flex flex-wrap gap-3">
-              <ServiceButton
-                label="Google Calendar"
-                icon="https://www.gstatic.com/images/branding/product/2x/calendar_2020q4_color_96dp.png"
-              />
-              <ServiceButton
-                label="Microsoft Outlook"
-                icon="https://upload.wikimedia.org/wikipedia/commons/d/df/Microsoft_Office_Outlook_%282018%E2%80%93present%29.svg"
-              />
+              <RainbowButton>Google calender</RainbowButton>
+              <RainbowButton>Microsoft outlook</RainbowButton>
             </div>
           </div>
         </div>
