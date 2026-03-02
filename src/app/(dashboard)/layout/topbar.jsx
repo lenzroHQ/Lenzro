@@ -4,7 +4,6 @@ import React from "react";
 import {
   Plus,
   ChevronDown,
-  ChevronsLeft,
   CheckCircle2,
   Send,
   ListTodo,
@@ -41,22 +40,7 @@ const TopBar = ({ setIsCollapsed }) => {
 
         {/* Right Action Group */}
         <div className="flex items-center gap-1.5 text-zinc-400">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                className="p-1 hover:bg-zinc-800 rounded text-zinc-500 hover:text-white transition-colors"
-                onClick={() => setIsCollapsed(true)}
-              >
-                <ChevronsLeft size={16} />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent
-              side="right"
-              className="bg-zinc-800 text-white ml-2 border-zinc-700 text-[10px] px-2 py-1"
-            >
-              close sidebar
-            </TooltipContent>
-          </Tooltip>
+
 
           <div className="h-4 w-[1px] bg-zinc-800 mx-0.5" />
 

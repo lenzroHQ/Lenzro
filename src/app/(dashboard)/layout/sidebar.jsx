@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import HomeSidebar from "./home-sidebar";
+import LibrarySidebar from "./library-sidebar";
 
 
 const Sidebar = () => {
@@ -76,8 +77,8 @@ const Sidebar = () => {
         return <HomeSidebar />;
       // case "/client/inbox":
       //   return <InboxSidebar />;
-      // case "/client/library":
-      //   return <LibrarySidebar />;
+      case "/client/library":
+        return <LibrarySidebar />;
       // default:
       //   return <HomeSidebar />;
     }
