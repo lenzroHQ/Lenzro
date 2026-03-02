@@ -13,7 +13,6 @@ import {
   Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ToolDialog } from "./tool-dialog";
 
 const LibrarySidebar = () => {
   return (
