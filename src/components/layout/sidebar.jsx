@@ -29,6 +29,7 @@ import { cn } from "@/lib/utils";
 import HomeSidebar from "./home-sidebar";
 import LibrarySidebar from "./library-sidebar";
 
+
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const pathname = usePathname();
@@ -114,6 +115,7 @@ const Sidebar = () => {
                         : "text-zinc-400 group-hover:bg-zinc-800 group-hover:text-white",
                     )}
                   >
+
                     {item.isCustomSvg ? (
                       <img
                         src={item.icon}

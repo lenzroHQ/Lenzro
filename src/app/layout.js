@@ -2,6 +2,7 @@ import { M_PLUS_1_Code, Outfit } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import CookieConsent from "@/components/shared/CookieConsent";
+import { AuthProvider } from "@/lib/auth-provider";
 
 const outifit = Outfit({
   variable: "--font-outfit",
@@ -80,8 +81,10 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <CookieConsent />
-          {children}
+          <AuthProvider>
+            <CookieConsent />
+            {children}
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

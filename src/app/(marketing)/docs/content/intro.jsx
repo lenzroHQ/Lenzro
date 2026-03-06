@@ -1,47 +1,53 @@
-import React from "react";
-
-const Introduction = () => {
+﻿const Introduction = () => {
   return (
-    <div className="space-y-4 h-full">
-      <p className="text-sm text-zinc-400">
+    <div>
+      <h2 id="what-is-lenzro">What is Lenzro</h2>
+      <p>
         Lenzro is an intelligent workspace designed to run your entire business
-        from one place — branding, design, content, websites, files, updates,
-        and AI-driven operations.
+        from one place - branding, design, content, websites, files, updates,
+        and AI-driven operations. This documentation will help you understand
+        how Lenzro works, how to set it up, and how to use it effectively to
+        manage real-world projects and businesses.
       </p>
-      <p className="text-sm text-zinc-400">
-        {" "}
-        This documentation will help you understand how Lenzro works, how to set
-        it up, and how to use it effectively to manage real-world projects and
-        businesses.{" "}
+      <p>
+        Whether you are a solo creator, a startup team, or a growing company,
+        Lenzro adapts to how you work - not the other way around.
       </p>
-      <p className="text-sm text-zinc-400">
-        Whether you’re a solo creator, a startup team, or a growing company,
-        Lenzro adapts to how you work — not the other way around.
-      </p>
-      <h3>Who This Documentation Is For </h3>
-      This documentation is written for:
-      Founders and business owners Designers, developers, and creatives Product
-      teams and operators Anyone building or managing structured work You don’t
-      need to be technical to use Lenzro — but if you are, deeper technical
-      concepts are also covered. What You’ll Learn Here By going through these
-      docs, you’ll learn how to: Create and structure workspaces Use the
-      Blackboard canvas and widgets Organize pages, data, and schemas Let AI
-      manage layouts, priorities, and updates Customize Lenzro for your workflow
-      Understand how the system works under the hood How the Docs Are Organized
-      The documentation is structured to move from simple → advanced:
-      Introduction & Concepts Understand what Lenzro is and why it exists.
-      Getting Started Set up your first workspace and learn the basics. Core
-      Concepts Learn how canvases, widgets, pages, and views work. The AI Layer
-      Understand how Lenzro’s AI thinks and acts. Business Modules Clients,
-      payments, files, email, analytics, websites. Customization & Architecture
-      Advanced customization and system design. Security, Privacy & Roadmap How
-      your data is protected and where Lenzro is going. How to Use This
-      Documentation You can read the docs in order or jump directly to the
-      section you need. Each page includes: Clear explanations Practical
-      examples Conceptual guidance (not just features) If you’re new, we
-      recommend starting with Quick Start. Next Steps 👉 Quick Start – Get up
-      and running fast 👉 What is Lenzro – Understand the core idea 👉 Why
-      Lenzro – Learn the problems it solves
+
+      <h2 id="who-this-is-for">Who This Is For</h2>
+      <p>This documentation is written for:</p>
+      <ul>
+        <li>Founders and business owners</li>
+        <li>Designers, developers, and creatives</li>
+        <li>Product teams and operators</li>
+        <li>Anyone building or managing structured work</li>
+      </ul>
+
+      <h2 id="what-youll-learn">What You Will Learn</h2>
+      <p>By going through these docs, you will learn how to:</p>
+      <ul>
+        <li>Create and structure workspaces</li>
+        <li>Use the Blackboard canvas and widgets</li>
+        <li>Organize pages, data, and schemas</li>
+        <li>Let AI manage layouts, priorities, and updates</li>
+        <li>Customize Lenzro for your workflow</li>
+      </ul>
+
+      <h2 id="how-docs-are-organized">How the Docs Are Organized</h2>
+      <ul>
+        <li><strong>Introduction and Concepts</strong> - What Lenzro is and why it exists.</li>
+        <li><strong>Getting Started</strong> - Set up your first workspace.</li>
+        <li><strong>Core Concepts</strong> - Canvases, widgets, pages, and views.</li>
+        <li><strong>The AI Layer</strong> - How Lenzro AI thinks and acts.</li>
+        <li><strong>Business Modules</strong> - Clients, payments, files, email, analytics.</li>
+      </ul>
+
+      <h2 id="next-steps">Next Steps</h2>
+      <ul>
+        <li><strong>What is Lenzro</strong> - Understand the core idea.</li>
+        <li><strong>Why Lenzro</strong> - Learn the problems it solves.</li>
+        <li><strong>Create Your Workspace</strong> - Get up and running fast.</li>
+      </ul>
     </div>
   );
 };

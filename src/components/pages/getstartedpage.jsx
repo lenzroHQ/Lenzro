@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 
 const GetStarted = () => {
   return (
-    <div className="max-w-3xl mx-auto px-1  text-zinc-200 select-none">
+    <div className="max-w-3xl hide-scrollbar mx-auto px-1  text-zinc-200 select-none">
       {/* Header Section */}
       <div className="mb-8">
         <span className="text-6xl block mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">

@@ -1,5 +1,6 @@
 "use client";
 import { LoginForm } from "@/components/forms/login-form";
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 const AnimatedTooltip = dynamic(
@@ -85,7 +86,9 @@ const Auth = () => {
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
             {/* switch between login form and signup form */}
-            <LoginForm />
+            <Suspense>
+              <LoginForm />
+            </Suspense>
           </div>
         </div>
       </div>
@@ -105,8 +108,8 @@ const Auth = () => {
         <div className="flex flex-col items-center justify-center mb-10 gap-5 w-full relative z-10">
           <AnimatedTooltip items={people} />
           <p className="text-center space-x-2">
-            <AuroraText> 100,000+</AuroraText>designers &
-            developers have used <br />
+            <AuroraText> 100,000+</AuroraText>designers & developers have used{" "}
+            <br />
             Lenzro Marketplace.
           </p>
         </div>

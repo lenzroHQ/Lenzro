@@ -1,22 +1,37 @@
 "use client";
-import { Spinner } from "@/components/ui/spinner";
-import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import {
+  getStoredWorkspace,
+  getStoredUser,
+  workspaceSlugFromUser,
+  storeWorkspace,
+} from "@/lib/workspace";
+import { LoadingSequence } from "@/components/animation/loadingsequence";
 
-const Loading = () => {
+export default function LoadingPage() {
   const router = useRouter();
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      router.replace("/client");
-    }, 5000);
-    return () => clearTimeout(timeout);
-  }, [router]);
+
+  const handleFinished = () => {
+    let workspace = getStoredWorkspace();
+
+    if (!workspace) {
+      const user = getStoredUser();
+      if (user) {
+        workspace = workspaceSlugFromUser(user);
+        storeWorkspace(workspace);
+      }
+    }
+
+    if (workspace) {
+      router.replace(`/app/${workspace}`);
+    } else {
+      router.replace("/app");
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center gap-2 justify-center">
-      <Spinner className="size-4 text-zinc-400" />
-      <p className="text-sm text-zinc-400">Redirecting to your workspace</p>
+    <div className="min-h-screen flex items-center justify-center">
+      <LoadingSequence onFinished={handleFinished} />
     </div>
   );
-};
-
-export default Loading;
+}

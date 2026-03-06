@@ -74,10 +74,7 @@ const ClientNavbar = () => {
                   <LayoutDashboard size={16} />
                 </Link>
               </TooltipTrigger>
-              <TooltipContent
-                side="right"
-                className="text-[11px] ml-2 px-2 py-1"
-              >
+              <TooltipContent side="right" className="text-[11px] ml-2 px-2 py-1">
                 Switch to Workspace
               </TooltipContent>
             </Tooltip>
@@ -107,7 +104,10 @@ const ClientNavbar = () => {
                 <CircleCheckBig size={16} />
               </button>
             </TooltipTrigger>
-            <TooltipContent side="bottom" className=" text-[11px] px-2  py-1">
+            <TooltipContent
+              side="bottom"
+              className=" text-[11px] px-2  py-1"
+            >
               Create
             </TooltipContent>
           </Tooltip>

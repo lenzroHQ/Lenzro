@@ -8,6 +8,10 @@ export const docs = [
     ],
     children: [
       {
+        title: "Introduction",
+        route: "/docs",
+      },
+      {
         title: "What is Lenzro",
         route: "/docs/what-is-lenzro",
         subchildren: [

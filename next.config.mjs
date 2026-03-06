@@ -2,8 +2,6 @@
 const config = {
   reactStrictMode: true,
 
-  serverExternalPackages: ["firebase", "firebase-admin"],
-
   async headers() {
     return [
       // 🔐 Firebase / Google Auth popup fix
@@ -31,7 +29,16 @@ const config = {
     ];
   },
 
-  pageExtensions: ["js", "jsx", "ts", "tsx"],
+  pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
+
+  async rewrites() {
+    return [
+      {
+        source: "/docs/:path*.mdx",
+        destination: "/llms.mdx/docs/:path*",
+      },
+    ];
+  },
 };
 
 export default config;

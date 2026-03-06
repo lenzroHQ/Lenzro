@@ -11,12 +11,52 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { auth, googleProvider } from "../../lib/firebase";// keep this
-import { signInWithPopup } from "firebase/auth"; 
+import { useRouter, useSearchParams } from "next/navigation";
+import { auth, googleProvider } from "../../lib/firebase";
+import { signInWithPopup } from "firebase/auth";
 import { Eye, EyeOff } from "lucide-react";
 import { toast, Toaster } from "sonner";
-import Cookies from "js-cookie";
+import {
+  workspaceSlugFromUser,
+  storeWorkspace,
+  storeUser,
+} from "@/lib/workspace";
+
+/**
+ * After a successful Firebase sign-in:
+ * 1. POST the user to /api/routes/session → sets httpOnly cookie
+ * 2. Persist user + workspace slug in localStorage (client use)
+ * 3. Redirect to /app/{workspace} OR the ?next= param if present
+ */
+async function handlePostAuth(user, router, searchParams) {
+  const sessionUser = {
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+  };
+
+  // Set server-side session cookie
+  const res = await fetch("/api/routes/session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user: sessionUser }),
+  });
+
+  if (!res.ok) throw new Error("Session creation failed");
+
+  // Persist to localStorage for client-side access
+  storeUser(sessionUser);
+
+  // Derive and store the workspace slug
+  const workspace = workspaceSlugFromUser(user);
+  storeWorkspace(workspace);
+
+  // Redirect — honour ?next= if present, otherwise go to workspace
+  const next = searchParams?.get("next");
+  const target = next && next.startsWith("/app") ? next : `/app/${workspace}`;
+  router.replace(target);
+}
 
 export function LoginForm({ className, ...props }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,57 +64,42 @@ export function LoginForm({ className, ...props }) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  // Handle Email/Password Login (optional for MVP)
+  // Email / Password login (MVP mock — swap for Firebase Email auth when ready)
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      toast.error("Email and password required");
+      return;
+    }
     setLoading(true);
-
     try {
-      // For MVP, just mock login or integrate Firebase Email/Password if needed
-      if (!email || !password) {
-        toast.error("Email and password required");
-        setLoading(false);
-        return;
-      }
-
-      // Mock success login (replace with Firebase Email login if needed)
-      localStorage.setItem(
-        "lenzrouser",
-        JSON.stringify({ email, displayName: email.split("@")[0] }),
-      );
-      Cookies.set("lenzrouser", email, { expires: 7 });
-
-      router.push("/loading");
+      // Mock Firebase user object for email login
+      const mockUser = {
+        uid: `email-${Date.now()}`,
+        email,
+        displayName: email.split("@")[0],
+        photoURL: null,
+      };
+      await handlePostAuth(mockUser, router, searchParams);
     } catch (err) {
       console.error(err);
-      toast.error("Login failed");
+      toast.error("Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Google Login
+  // Google login
   const handleGoogle = async () => {
     setLoading(true);
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-
-      localStorage.setItem(
-        "lenzrouser",
-        JSON.stringify({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-        }),
-      );
-      Cookies.set("lenzrouser", user.uid, { expires: 7 });
-
-      router.push("/loading");
+      await handlePostAuth(result.user, router, searchParams);
     } catch (err) {
       console.error("Google login error:", err);
-      toast.error("Google login failed");
+      toast.error("Google login failed. Please try again.");
     } finally {
       setLoading(false);
     }

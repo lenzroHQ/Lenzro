@@ -41,11 +41,7 @@ const SidePopover = () => {
   // Helper for initials
   const getInitials = (name) => {
     if (!name) return "?";
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase();
+    return name.split(" ").map((n) => n[0]).join("").toUpperCase();
   };
 
   const displayName = user?.displayName || user?.email || "User";
