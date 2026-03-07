@@ -167,8 +167,10 @@ export function SearchBarWithShortcut({ mobileTrigger = false }) {
           {/* Custom header with tags and Esc only */}
           <div className="flex items-center justify-between  px-4 pt-4 pb-2 border-b">
             <div className="flex gap-2 text-xs font-medium text-muted-foreground">
-              <span className="rounded
-               px-2 py-1">
+              <span
+                className="rounded
+               px-2 py-1"
+              >
                 Search our Documentation
               </span>
             </div>
@@ -191,14 +193,14 @@ export function SearchBarWithShortcut({ mobileTrigger = false }) {
         </CommandDialog>
       </div>
 
-      {/* Mobile Drawer */}
-      <div className="lg:hidden">
+      {/* Mobile Drawer - only rendered when used as mobile trigger */}
+      {mobileTrigger && (
         <Drawer open={mobileOpen} onOpenChange={setMobileOpen}>
           <DrawerContent>
             <DrawerHeader>
               <DrawerTitle>Search Docs</DrawerTitle>
             </DrawerHeader>
-            <div className="px-4">
+            <div className="px-4 pb-6">
               <Input
                 placeholder="What are you searching for?"
                 value={query}
@@ -209,7 +211,7 @@ export function SearchBarWithShortcut({ mobileTrigger = false }) {
             </div>
           </DrawerContent>
         </Drawer>
-      </div>
+      )}
     </>
   );
 }
