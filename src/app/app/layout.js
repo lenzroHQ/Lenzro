@@ -1,18 +1,27 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { getServerSession } from "@/lib/with-session";
+import { AuthGuard } from "@/components/layout/auth-guard";
 
 /**
- * Server-side auth guard for all /app/* routes.
- * The middleware already blocks unauthenticated requests, but this
- * adds a second layer and avoids any client-side flash.
+ * /app layout — dual-layer auth guard.
+ *
+ * Layer 1 (this file, server):
+ *   Reads and cryptographically verifies the HMAC-signed session cookie.
+ *   Any unauthenticated or tampered request is redirected to /auth before
+ *   React even renders.  No client-side flash is possible.
+ *
+ * Layer 2 (AuthGuard, client):
+ *   Subscribes to Firebase onAuthStateChanged.  If the Firebase token has
+ *   expired or the user was forcibly signed out on another device, the
+ *   client guard performs a hard-redirect to /auth.
  */
 export default async function AppLayout({ children }) {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("lenzro-session");
+  const session = await getServerSession();
 
-  if (!session?.value) {
+  if (!session) {
     redirect("/auth");
   }
 
-  return <>{children}</>;
+  // Pass server-verified session to children via AuthGuard (client layer)
+  return <AuthGuard>{children}</AuthGuard>;
 }

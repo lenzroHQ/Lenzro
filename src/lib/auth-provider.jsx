@@ -30,10 +30,19 @@ export function AuthProvider({ children }) {
   }, []);
 
   const signOut = useCallback(async () => {
+    // 1. Sign out of Firebase (revokes the Firebase token)
     await firebaseSignOut(auth);
-    // Clear the server-side session cookie
+
+    // 2. Delete the server-side session cookie
     await fetch("/api/routes/session", { method: "DELETE" });
+
+    // 3. Clear localStorage
     clearSession();
+
+    // 4. Hard-redirect to /auth using window.location.replace so this URL
+    //    is removed from browser history — the user cannot press Back to
+    //    return to a protected page after signing out.
+    window.location.replace("/auth");
   }, []);
 
   return (

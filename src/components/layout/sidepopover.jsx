@@ -34,14 +34,20 @@ const SidePopover = () => {
   const { workspace } = useParams() ?? {};
 
   const handleLogout = async () => {
+    // signOut() in auth-provider clears Firebase + server cookie + localStorage
+    // and performs a hard window.location.replace("/auth") — no need to
+    // call router.replace here.
     await signOut();
-    router.replace("/auth");
   };
 
   // Helper for initials
   const getInitials = (name) => {
     if (!name) return "?";
-    return name.split(" ").map((n) => n[0]).join("").toUpperCase();
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase();
   };
 
   const displayName = user?.displayName || user?.email || "User";

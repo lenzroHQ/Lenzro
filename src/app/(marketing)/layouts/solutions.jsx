@@ -1,3 +1,4 @@
+"use client";
 import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import React, { useEffect, useMemo, useRef, useState } from "react";

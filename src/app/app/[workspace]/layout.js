@@ -1,17 +1,37 @@
+import { redirect } from "next/navigation";
+import { getServerSession } from "@/lib/with-session";
 import ClientNavbar from "@/components/layout/clientnav";
 import LenzroAi from "@/components/layout/lenzroai";
 import WorkspaceSidebar from "@/components/layout/sidebar";
 
 /**
  * Workspace shell layout.
- * Wraps every /app/[workspace]/* page with the navbar, sidebar, and AI button.
+ *
+ * Combines two responsibilities:
+ *  1. Workspace isolation — verifies the route's workspace slug matches the
+ *     signed session token.  Any authenticated user navigating to another
+ *     user's workspace is silently redirected to their own workspace.
+ *  2. UI shell — renders the sticky navbar, sidebar, and AI assistant.
+ *
  * This is a Server Component — keep it that way.
- * Child pages decide whether they are server or client components individually.
  */
-export default function WorkspaceLayout({ children }) {
+export default async function WorkspaceLayout({ children, params }) {
+  const { workspace: routeWorkspace } = await params;
+  const session = await getServerSession();
+
+  // Defensive guard (parent /app layout already covers this)
+  if (!session) {
+    redirect("/auth");
+  }
+
+  // Workspace isolation: silently redirect to the user's own workspace
+  if (session.workspace && routeWorkspace !== session.workspace) {
+    redirect(`/app/${session.workspace}`);
+  }
+
   return (
     <>
-      <div className="bg-background min-h-screen flex flex-col">
+      <div className="bg-background h-screen overflow-hidden flex flex-col">
         {/* Sticky top bar */}
         <div className="sticky top-0 z-40">
           <ClientNavbar />
@@ -20,7 +40,7 @@ export default function WorkspaceLayout({ children }) {
         {/* Sidebar + page content */}
         <div className="flex flex-row flex-1 gap-1 p-1 min-h-0">
           <WorkspaceSidebar />
-          <div className="flex-1 hide-scrollbar min-h-0 rounded-md border bg-background overflow-auto">
+          <div className="flex-1 scrollbar-pill min-h-0 rounded-md border bg-background overflow-auto">
             {children}
           </div>
         </div>

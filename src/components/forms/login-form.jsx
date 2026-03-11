@@ -24,9 +24,11 @@ import {
 
 /**
  * After a successful Firebase sign-in:
- * 1. POST the user to /api/routes/session → sets httpOnly cookie
- * 2. Persist user + workspace slug in localStorage (client use)
- * 3. Redirect to /app/{workspace} OR the ?next= param if present
+ * 1. Derive workspace slug from the Firebase user object
+ * 2. POST { user, workspace } → /api/routes/session → server sets a
+ *    cryptographically-signed httpOnly cookie (HMAC-SHA256)
+ * 3. Persist user + workspace in localStorage for client-side reads
+ * 4. Redirect to /app/{workspace} OR the ?next= param if present
  */
 async function handlePostAuth(user, router, searchParams) {
   const sessionUser = {
@@ -36,23 +38,26 @@ async function handlePostAuth(user, router, searchParams) {
     photoURL: user.photoURL,
   };
 
-  // Set server-side session cookie
+  // Derive workspace before calling the session API (it must be included
+  // in the signed token for workspace-isolation checks).
+  const workspace = workspaceSlugFromUser(user);
+
+  // Create a signed server-side session cookie
   const res = await fetch("/api/routes/session", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ user: sessionUser }),
+    body: JSON.stringify({ user: sessionUser, workspace }),
   });
 
   if (!res.ok) throw new Error("Session creation failed");
 
-  // Persist to localStorage for client-side access
+  // Mirror to localStorage so client components can read identity without
+  // re-fetching (httpOnly cookies are not readable from JavaScript).
   storeUser(sessionUser);
-
-  // Derive and store the workspace slug
-  const workspace = workspaceSlugFromUser(user);
   storeWorkspace(workspace);
 
-  // Redirect — honour ?next= if present, otherwise go to workspace
+  // Redirect — honour ?next= if present and it targets /app, otherwise go
+  // straight to the user's workspace.
   const next = searchParams?.get("next");
   const target = next && next.startsWith("/app") ? next : `/app/${workspace}`;
   router.replace(target);
@@ -157,6 +162,7 @@ export function LoginForm({ className, ...props }) {
               type={showPassword ? "text" : "password"}
               required
               placeholder="******"
+              autoComplete="current-password"
               className="pr-10"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

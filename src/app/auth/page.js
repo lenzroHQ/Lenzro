@@ -2,6 +2,11 @@
 import { LoginForm } from "@/components/forms/login-form";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
+// Note: back-navigation to /auth is already blocked at the server level by
+// the middleware (valid session → redirected to /app before this page renders).
+// No client-side onAuthStateChanged guard is needed here — it would cause a
+// redirect loop when the Firebase cache still holds a user but the httpOnly
+// session cookie has already been cleared by logout.
 
 const AnimatedTooltip = dynamic(
   () =>

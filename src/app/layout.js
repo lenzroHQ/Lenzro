@@ -15,12 +15,16 @@ const mplusone = M_PLUS_1_Code({
   subsets: ["latin"],
 });
 
+// themeColor must be in viewport export, not metadata (Next.js App Router)
+export const viewport = {
+  themeColor: "#000000",
+};
+
 export const metadata = {
   title: "Lenzro",
   description: "The operating system for modern businesses and startups",
   metadataBase: new URL("https://lenzro.com/"),
   manifest: "/manifest.json",
-  themeColor: "#000000",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

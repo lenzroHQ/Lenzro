@@ -53,7 +53,7 @@ const LenzroAi = () => {
                     />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent side="top" className="mb-2">
+                <TooltipContent side="top" className="">
                   Lenzro AI
                 </TooltipContent>
               </Tooltip>

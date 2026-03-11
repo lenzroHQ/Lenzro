@@ -132,7 +132,7 @@ const ClientNavbar = () => {
           {/* User Avatar Popover */}
           <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
             <PopoverTrigger asChild>
-              <div className="flex items-center pl-1 pr-2 py-0.5 hover:bg-zinc-800 rounded-full transition-colors cursor-pointer gap-2 group">
+              <div className="flex items-center pl-1 pr-2 py-0.5 hover:bg-none rounded-full transition-colors cursor-pointer gap-1 group">
                 <div className="relative">
                   {/* Avatar Initials */}
                   <div className="flex items-center justify-center w-7 h-7 rounded-full bg-zinc-900 border border-zinc-700 text-white text-[10px] font-bold select-none">
@@ -145,7 +145,7 @@ const ClientNavbar = () => {
                 </div>
 
                 <ChevronIcon
-                  size={12}
+                  size={14}
                   className={`text-zinc-500 transition-transform duration-200 ${popoverOpen ? "rotate-180" : ""}`}
                 />
               </div>

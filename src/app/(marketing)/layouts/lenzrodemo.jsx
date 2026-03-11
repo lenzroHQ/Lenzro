@@ -1,3 +1,4 @@
+"use client"
 import { AnimatedBeam } from "@/components/ui/animated-beam";
 import { AnimatedBeamMultipleOutputDemo } from "@/components/ui/animatedbeammultipleoutputdemo";
 import { DotPattern } from "@/components/ui/dot-pattern";
