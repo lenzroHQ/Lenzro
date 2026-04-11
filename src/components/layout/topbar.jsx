@@ -71,12 +71,12 @@ const TopBar = ({ setIsCollapsed }) => {
                 {/* Section 1: Quick Actions */}
                 <MenuItem
                   icon={<CheckCircle2 size={16} />}
-                  label="Task"
+                  label="Page"
                   shortcut="Alt T"
                 />
                 <MenuItem
                   icon={<Send size={16} />}
-                  label="Message"
+                  label="Sub page"
                   shortcut="Ctrl G"
                 />
 
@@ -100,19 +100,6 @@ const TopBar = ({ setIsCollapsed }) => {
                 />
 
                 <Separator className="mt-3 bg-zinc-800" />
-
-                {/* Section 3: AI */}
-                <div className="flex items-center justify-between px-3 py-2 hover:bg-zinc-800/50 rounded-lg cursor-pointer transition-colors group">
-                  <div className="flex items-center gap-3">
-                    <span className="text-zinc-500 group-hover:text-zinc-300">
-                      <Zap size={16} className="text-orange-500" />
-                    </span>
-                    <span className="text-sm font-medium">Super Agent</span>
-                  </div>
-                  <span className="bg-orange-500/10 text-orange-500 text-[10px] font-bold px-1.5 py-0.5 rounded">
-                    Hot
-                  </span>
-                </div>
 
                 <Separator className="my-1.5 bg-zinc-800" />
 
@@ -142,12 +129,6 @@ const TopBar = ({ setIsCollapsed }) => {
                   icon={<Settings2 size={16} />}
                   label="Customize your sidebar"
                 />
-
-                {/* Footer Button */}
-                <Button className="mt-1 w-full flex items-center justify-center gap-2 py-2  rounded-lg font-semiboldtransition-all">
-                  <LayoutTemplate size={14} />
-                  Templates
-                </Button>
               </div>
             </PopoverContent>
           </Popover>

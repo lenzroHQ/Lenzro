@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname, useParams } from "next/navigation";
@@ -41,6 +41,14 @@ const Sidebar = () => {
   const pathname = usePathname();
   const { workspace } = useParams() ?? {};
   const base = workspace ? `/app/${workspace}` : "/client";
+
+  // Collapse sidebar when navigating to blackboard
+  useEffect(() => {
+    if (pathname.includes("/blackboard")) {
+      setIsCollapsed(true);
+    }
+  }, [pathname]);
+
   const toggleSidebar = () => setIsCollapsed(!isCollapsed);
 
   const mainTabs = [
@@ -169,8 +177,7 @@ const Sidebar = () => {
                         </TooltipTrigger>
                         <PopoverContent
                           side="right"
-                          align="end"
-                          className="w-72 p-4 bg-[#111] border-zinc-800 rounded-2xl ml-2 shadow-2xl"
+                          className="w-72 p-4 bg-[#111] border-zinc-800 rounded-2xl  shadow-2xl"
                         >
                           {/* More items logic remains the same */}
                         </PopoverContent>

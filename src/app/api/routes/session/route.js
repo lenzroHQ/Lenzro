@@ -14,23 +14,33 @@ import {
  * stored directly — the cookie is tamper-proof.
  */
 export async function POST(request) {
-  const body = await request.json().catch(() => ({}));
-  const { user, workspace } = body;
+  try {
+    const body = await request.json().catch(() => ({}));
+    const { user, workspace } = body;
 
-  if (!user?.uid) {
-    return NextResponse.json({ error: "Missing user.uid" }, { status: 400 });
-  }
-  if (!workspace) {
+    if (!user?.uid) {
+      return NextResponse.json({ error: "Missing user.uid" }, { status: 400 });
+    }
+    if (!workspace) {
+      return NextResponse.json(
+        { error: "Missing workspace slug" },
+        { status: 400 },
+      );
+    }
+
+    const token = await createSessionToken(user.uid, workspace);
+    const res = NextResponse.json({ ok: true });
+    res.cookies.set(COOKIE_NAME, token, SESSION_COOKIE_OPTIONS);
+    return res;
+  } catch (err) {
+    // Log server-side for debugging. Never expose internal error details to
+    // the client — callers only see a generic 500 message.
+    console.error("[session POST] Unhandled error:", err?.message ?? err);
     return NextResponse.json(
-      { error: "Missing workspace slug" },
-      { status: 400 },
+      { error: "Internal server error. Check SESSION_SECRET env-var." },
+      { status: 500 },
     );
   }
-
-  const token = await createSessionToken(user.uid, workspace);
-  const res = NextResponse.json({ ok: true });
-  res.cookies.set(COOKIE_NAME, token, SESSION_COOKIE_OPTIONS);
-  return res;
 }
 
 /**

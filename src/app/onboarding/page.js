@@ -53,7 +53,7 @@ export default function OnboardingPage() {
               htmlFor="workspace-name"
               className="text-sm font-medium text-foreground"
             >
-              Workspace name
+              Business name
             </label>
             <input
               id="workspace-name"
@@ -61,7 +61,7 @@ export default function OnboardingPage() {
               autoFocus
               value={workspaceName}
               onChange={(e) => setWorkspaceName(e.target.value)}
-              placeholder="e.g. Acme Corp, My Projects…"
+              placeholder="e.g. Acme Corp"
               className="w-full px-3 py-2.5 rounded-lg border border-border bg-background text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 transition"
               maxLength={48}
             />

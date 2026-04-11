@@ -1,22 +1,42 @@
-"use client"
-import { TooltipProvider } from "@/components/ui/tooltip";
+"use client";
+
 import React, { useState } from "react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import {
+  BarChart3,
+  CreditCard,
+  Globe,
+  Home,
+  Palette,
+  Settings,
+  ShoppingBag,
+  Trash2,
+  Users2,
+  Star,
+} from "lucide-react";
+
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Separator } from "@/components/ui/separator";
 import TopBar from "./topbar";
 import SidebarSection from "./sidebar-section";
 import SidebarRow from "./sidebar-row";
-import { BarChart3, Calendar, CreditCard, FileJson, Globe, Home, Inbox, LayoutGrid, Palette, Settings, ShoppingBag, Star, Trash2, Users2 } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { FileItem, Files, FolderContent, FolderItem, FolderTrigger, SubFiles } from "@/components/animate-ui/components/radix/files";
-
 
 const HomeSidebar = () => {
-  const [activeItem , setActiveItem] = useState("");
+  const [activeItem, setActiveItem] = useState("");
+  const params = useParams();
+  const workspace = params.workspace;
+
+  // Helper for consistent styling
+  const navItemClasses = (itemLabel) =>
+    `flex items-center gap-3 px-2 py-1.5 rounded-lg transition-all text-zinc-200 font-medium text-[13px] ${
+      activeItem === itemLabel ? "bg-zinc-800" : "hover:bg-zinc-900/60"
+    }`;
+
   return (
     <div className="p-4 w-[280px]">
       <TooltipProvider delayDuration={0}>
-        <aside className="relative h-[92vh] w-full flex flex-col  overflow-hidden rounded-xl">
+        <aside className="relative h-[92vh] w-full flex flex-col overflow-hidden rounded-xl">
           {/* Fixed Topbar */}
           <TopBar />
 
@@ -90,141 +110,40 @@ const HomeSidebar = () => {
 
             <Separator />
 
-            {/* SECTION: Workspace */}
-            <SidebarSection
-              title="Workspace"
-              showPlus={false}
-              defaultOpen={true}
-            >
-              <Link href={"/client/inbox"}>
-                <Button
-                  className={
-                    "rounded-lg w-full flex items-center justify-start px-0 cursor-pointer text-zinc-400 gap-3"
-                  }
-                  variant="ghost"
-                >
-                  <Inbox size={16} />
-                  <span className="text-[13px] font-medium">Inbox</span>
-                </Button>
-              </Link>
-
-              <Link href={"/client/library"}>
-                <Button
-                  className={
-                    "rounded-lg w-full flex items-center justify-start px-0 cursor-pointer text-zinc-400 gap-3"
-                  }
-                  variant="ghost"
-                >
-                  <LayoutGrid size={16} />
-                  <span className="text-[13px] font-medium">Library</span>
-                </Button>
-              </Link>
-
-              <Link href={"/client/calender"}>
-                <Button
-                  className={
-                    "rounded-lg w-full flex items-center justify-start px-0 cursor-pointer text-zinc-400 gap-3"
-                  }
-                  variant="ghost"
-                >
-                  <Calendar size={16} />
-                  <span className="text-[13px] font-medium">Calender</span>
-                </Button>
-              </Link>
-            </SidebarSection>
-
-            <Separator />
-
-            {/* SECTION: Files Section */}
-            <SidebarSection title="Files" showPlus={true} defaultOpen={true}>
-              <div className="">
-                <Files className="w-full text-[13px]" defaultOpen={["app"]}>
-                  <FolderItem value="app">
-                    <FolderTrigger className="w-full flex items-center gap-2 hover:bg-zinc-900/40 rounded  py-1 transition-colors text-zinc-400 hover:text-white">
-                      contracts
-                    </FolderTrigger>
-                    <FolderContent>
-                      <SubFiles defaultOpen={["(home)"]}>
-                        <FolderItem value="(home)">
-                          <FolderTrigger className="px-2 py-1 hover:text-white transition-colors text-zinc-500">
-                            (home)
-                          </FolderTrigger>
-                          <FolderContent>
-                            <FileItem className="pl-4 py-1 text-zinc-500 hover:text-zinc-200 cursor-pointer">
-                              page.tsx
-                            </FileItem>
-                            <FileItem className="pl-4 py-1 text-zinc-500 hover:text-zinc-200 cursor-pointer">
-                              layout.tsx
-                            </FileItem>
-                          </FolderContent>
-                        </FolderItem>
-                        <FileItem className="py-1 text-zinc-500 hover:text-zinc-200 cursor-pointer">
-                          global.css
-                        </FileItem>
-                      </SubFiles>
-                    </FolderContent>
-                  </FolderItem>
-
-                  <FolderItem value="components">
-                    <FolderTrigger className="w-full flex items-center gap-2 hover:bg-zinc-900/40 rounded  py-1 transition-colors text-zinc-400 hover:text-white">
-                      components
-                    </FolderTrigger>
-                    <FolderContent>
-                      <SubFiles>
-                        <FileItem className="py-1 text-zinc-500 hover:text-zinc-200 cursor-pointer">
-                          button.tsx
-                        </FileItem>
-                      </SubFiles>
-                    </FolderContent>
-                  </FolderItem>
-
-                  <FileItem
-                    icon={FileJson}
-                    className="py-1 text-zinc-400 hover:text-white cursor-pointer"
-                  >
-                    package.json
-                  </FileItem>
-                </Files>
-              </div>
-            </SidebarSection>
-
-            <Separator />
-
             {/* SECTION: Plain Bottom Navigation */}
             <nav className="flex flex-col gap-1 mt-2">
-              <button
-                className={`flex items-center gap-3 px-2 py-1.5  rounded-lg transition-all text-zinc-200 font-medium text-[13px] ${activeItem === "Settings" ? "bg-zinc-800" : "hover:bg-zinc-900/60"}`}
+              <Link
+                href={`/app/${workspace}/settings`}
+                className={navItemClasses("Settings")}
                 onClick={() => setActiveItem("Settings")}
               >
                 <Settings size={16} className="shrink-0" />
                 Settings
-              </button>
-              <button
-                className={`flex items-center gap-3 px-2 py-1.5  rounded-lg transition-all text-zinc-200 font-medium text-[13px] ${activeItem === "Marketplace" ? "bg-zinc-800" : "hover:bg-zinc-900/60"}`}
+              </Link>
+
+              <Link
+                href={`/app/${workspace}/marketplace`}
+                className={navItemClasses("Marketplace")}
                 onClick={() => setActiveItem("Marketplace")}
               >
                 <ShoppingBag size={16} className="shrink-0" />
                 Marketplace
-              </button>
-              <button
-                className={`flex items-center gap-3 px-2 py-1.5  rounded-lg transition-all text-zinc-200 font-medium text-[13px] ${activeItem === "Bin" ? "bg-zinc-800" : "hover:bg-zinc-900/60"}`}
+              </Link>
+
+              <Link
+                href={`/app/${workspace}/bin`}
+                className={navItemClasses("Bin")}
                 onClick={() => setActiveItem("Bin")}
               >
                 <Trash2 size={16} className="shrink-0" />
                 Trash
-              </button>
+              </Link>
             </nav>
           </div>
         </aside>
       </TooltipProvider>
     </div>
   );
-}
+};
 
-export default HomeSidebar
-
-
-
-
-
-  
+export default HomeSidebar;

@@ -1,4 +1,11 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Agrandir";
+  src: url("/agrandir_regular.otf") format("opentype");
+  font-weight: 400;
+}
+
 @plugin "tailwindcss-animate";
 @plugin "@tailwindcss/typography";
 @import "tw-animate-css";

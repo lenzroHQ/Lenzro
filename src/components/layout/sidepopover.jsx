@@ -87,7 +87,7 @@ const SidePopover = () => {
       <Separator className="my-1" />
 
       {/* Settings Section */}
-      <div className="px-1 space-y-0.5 pb-2 mb-2">
+      <div className="px-2 space-y-0.5 pb-2 mb-2">
         <MenuAction icon={<Volume2 size={18} />} label="Mute notifications" />
         <MenuAction
           icon={<Settings size={18} />}
@@ -106,7 +106,7 @@ const SidePopover = () => {
       <Separator className="my-1" />
 
       {/* Utilities Section */}
-      <div className="px-1 pb-2 mb-2">
+      <div className="px-2 pb-2 mb-2">
         <div className="px-3 py-2 text-[12px] text-zinc-500 tracking-wider">
           Utilities
         </div>
@@ -153,7 +153,7 @@ const SidePopover = () => {
       <Separator className="my-1" />
 
       {/* Footer Section */}
-      <div className="px-1 space-y-0.5">
+      <div className="px-2 space-y-0.5">
         <MenuAction icon={<Trash2 size={18} />} label="Trash" />
         <MenuAction
           icon={<LogOut size={18} />}

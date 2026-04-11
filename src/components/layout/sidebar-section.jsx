@@ -123,7 +123,7 @@ const SidebarSection = ({ title, children, showPlus, defaultOpen }) => {
                 </TooltipTrigger>
                 <TooltipContent
                   side="right"
-                  className="bg-zinc-800 text-white border-zinc-700 ml-2 text-[10px] px-2 py-1"
+                  className="text-[10px] px-2 py-1"
                 >
                   {title === "Files" ? "Add file" : "Add a page"}
                 </TooltipContent>

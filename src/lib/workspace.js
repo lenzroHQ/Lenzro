@@ -20,8 +20,17 @@ export function slugify(str = "") {
 /** Derive a workspace slug from a Firebase user object */
 export function workspaceSlugFromUser(user) {
   if (!user) return null;
-  if (user.displayName) return slugify(user.displayName);
-  if (user.email) return slugify(user.email.split("@")[0]);
+  // slugify can return "" if the string is all special/non-ascii chars,
+  // so fall through to the next option when the result is empty.
+  if (user.displayName) {
+    const slug = slugify(user.displayName);
+    if (slug) return slug;
+  }
+  if (user.email) {
+    const slug = slugify(user.email.split("@")[0]);
+    if (slug) return slug;
+  }
+  // Final fallback: first 16 chars of the uid (always alphanumeric)
   return user.uid.substring(0, 16);
 }
 

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "@/lib/with-session";
 import ClientNavbar from "@/components/layout/clientnav";
-import LenzroAi from "@/components/layout/lenzroai";
+import FloatingAi from "@/components/layout/floating-ai";
 import WorkspaceSidebar from "@/components/layout/sidebar";
 
 /**
@@ -40,7 +40,7 @@ export default async function WorkspaceLayout({ children, params }) {
         {/* Sidebar + page content */}
         <div className="flex flex-row flex-1 gap-1 p-1 min-h-0">
           <WorkspaceSidebar />
-          <div className="flex-1 scrollbar-pill min-h-0 rounded-md border bg-background overflow-auto">
+          <div className="flex-1 scrollbar-pill custom-scrollbar min-h-0 rounded-md border bg-background overflow-auto">
             {children}
           </div>
         </div>
@@ -48,7 +48,7 @@ export default async function WorkspaceLayout({ children, params }) {
 
       {/* Floating AI assistant */}
       <div className="fixed bottom-6 right-6 z-50">
-        <LenzroAi />
+        <FloatingAi />
       </div>
     </>
   );
