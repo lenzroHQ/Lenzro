@@ -1,3 +1,6 @@
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+@import "tw-animate-css";
 @import "tailwindcss";
 
 @font-face {
@@ -6,9 +9,6 @@
   font-weight: 400;
 }
 
-@plugin "tailwindcss-animate";
-@plugin "@tailwindcss/typography";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 

@@ -35,6 +35,7 @@ import {
 import HomeSidebar from "./home-sidebar";
 import LibrarySidebar from "./library-sidebar";
 import InboxSidebar from "./inbox-sidebar";
+import CalendarSidebar from "./calendar-sidebar";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -73,7 +74,6 @@ const Sidebar = () => {
     {
       label: "Calendar",
       icon: "/calendar_svg.svg",
-      noExpand: true,
       path: `${base}/calendar`,
       isCustomSvg: true,
     },
@@ -91,10 +91,16 @@ const Sidebar = () => {
     if (pathname === base) return <HomeSidebar />;
     if (pathname === `${base}/inbox`) return <InboxSidebar />;
     if (pathname === `${base}/library`) return <LibrarySidebar />;
+    if (pathname === `${base}/calendar`) return <CalendarSidebar />;
     return null;
   };
 
-  const SECONDARY_PATHS = [base, `${base}/inbox`, `${base}/library`];
+  const SECONDARY_PATHS = [
+    base,
+    `${base}/inbox`,
+    `${base}/library`,
+    `${base}/calendar`,
+  ];
   const currentHasSecondary = SECONDARY_PATHS.includes(pathname);
 
   const handleTabClick = (item) => {
