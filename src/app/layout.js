@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import CookieConsent from "@/components/shared/CookieConsent";
 import { AuthProvider } from "@/lib/auth-provider";
 
-const outifit = Outfit({
+const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
   weight: "400",
@@ -63,7 +63,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${mplusone.variable} ${outifit.variable} antialiased`}
+      className={`${mplusone.variable} ${outfit.variable} antialiased`}
       suppressHydrationWarning
     >
       <head>
