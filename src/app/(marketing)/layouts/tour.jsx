@@ -77,7 +77,7 @@ const Tour = () => {
           {SERVICES.map((card) => (
             <div
               key={card.number}
-              className="group relative p-6 md:p-8 flex flex-col justify-between  min-h-[360px] transition-colors duration-300 md:hover:bg-neutral-100/40 overflow-hidden  border border-transparent md:hover:border-neutral-200"
+              className="group relative p-6 md:p-8 flex flex-col justify-between  min-h-[360px] transition-colors duration-300 md:hover:bg-neutral-100/40 overflow-hidden  border border-transparent md:hover:border-neutral-900"
             >
               {/* Card Header Number */}
               <div className="text-sm font-mono text-neutral-500 mb-6 relative z-20">

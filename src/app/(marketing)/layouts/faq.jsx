@@ -19,79 +19,75 @@ const FAQ = () => {
   const lenzroFAQ = [
     {
       id: 1,
-      question: "What exactly does Lenzro do?",
-      answer: "Lenzro runs your business operations in one system.",
+      question: "What does Lenzro do?",
+      answer:
+        "We design and build custom software for real businesses — websites, SaaS platforms, and internal systems.",
       description: [
-        "Instead of switching between Notion, Canva, CRMs, payment tools, calendars, analytics, and AI chat tools, Lenzro connects everything into a single operational workspace.",
-        "Your data, tasks, clients, payments, designs, files, and decisions all live on the Blackboard, where AI actively manages and prioritizes work — not just documents it.",
+        "From your first landing page to a full production system, Lenzro handles the strategy, design, and engineering end-to-end.",
+        "We've shipped car rental platforms, healthcare booking systems, nonprofit sites, and fleet management dashboards — all built to run your actual operations, not just look good.",
       ],
     },
     {
       id: 2,
       question:
-        "How is Lenzro different from Notion or other productivity tools?",
-      answer: "Notion organizes information. Lenzro executes operations.",
+        "How is working with Lenzro different from a template or no-code builder?",
+      answer: "Templates get you a page. Lenzro gets you a system.",
       comparison: [
-        "Notion shows data → Lenzro manages it",
-        "Notion stores tasks → Lenzro prioritizes and acts on them",
-        "Notion needs manual setup → Lenzro adapts to your business automatically",
+        "Template builders → a static site you outgrow fast",
+        "No-code tools → limited to what the platform allows",
+        "Lenzro → custom-built software that fits your business, not the other way around",
       ],
       closing:
-        "Lenzro is built for running a business day-to-day, not just writing things down.",
+        "Every project is built from scratch with real code, so it scales as your business does.",
     },
     {
       id: 3,
-      question: "Do I need to set everything up manually?",
-      answer: "No. Lenzro is designed to reduce setup, not increase it.",
-      description: [
-        "When you create pages, widgets, or upload files:",
-        "The AI understands what they are",
-        "Suggests where they belong",
-        "Connects them to clients, payments, tasks, or deadlines automatically",
-        "You can customize everything — but you’re never starting from zero.",
+      question: "What kind of projects do you take on?",
+      answer: "Anything from a marketing website to a full SaaS product.",
+      list: [
+        "Website Redesign",
+        "Online Presence (Maps, socials, business email, ads)",
+        "Website Development",
+        "SaaS Application Creation",
+        "Mobile Development",
       ],
+      closing:
+        "If it needs a website, a system, or an app to run your business — we build it.",
     },
     {
       id: 4,
-      question: "What kind of businesses is Lenzro built for?",
-      answer:
-        "Lenzro adapts to how you run your business, not the other way around.",
+      question: "What tech stack do you use?",
+      answer: "Whatever's the right fit for the project — usually one of these.",
       list: [
-        "Freelancers & consultants",
-        "Agencies & studios",
-        "E-commerce brands",
-        "Startups & small teams",
-        "Service-based businesses",
+        "Next.js with Supabase or PostgreSQL for modern web apps and SaaS",
+        "MERN (MongoDB, Express, React, Node.js) for larger systems and dashboards",
+        "Tailwind CSS for fast, clean, responsive design",
       ],
       closing:
-        "Because pages, schemas, and widgets are flexible, Lenzro molds itself to your workflow instead of forcing templates on you.",
+        "We pick the stack based on what your business actually needs, not what's trendy.",
     },
     {
       id: 5,
-      question: "What does the AI actually do day to day?",
+      question: "How long does a project take, and what's the budget?",
       answer:
-        "The AI in Lenzro doesn’t just answer questions — it takes responsibility.",
-      list: [
-        "Organize your Blackboard automatically",
-        "Highlight overdue tasks or missed follow-ups",
-        "Prioritize what matters today",
-        "Suggest next actions based on real data",
-        "Notify you when something needs attention",
+        "It depends on scope, but most projects run a few weeks to a few months.",
+      description: [
+        "A redesign or marketing site is usually the fastest to ship.",
+        "A full SaaS platform or custom system takes longer, since it involves real architecture and testing.",
       ],
       closing:
-        "Think of it as an operations manager living inside your workspace.",
+        "Tell us your budget and timeline in the contact form and we'll scope it honestly — no inflated quotes.",
     },
     {
       id: 6,
-      question: "Is my business data safe and private?",
-      answer: "Yes. You own your data — always.",
+      question: "Do you support the project after it launches?",
+      answer: "Yes — we don't disappear after handoff.",
       list: [
-        "Your workspace is isolated and secure",
-        "AI actions are permission-based and auditable",
-        "You control what the AI can see and do",
-        "No data is shared across accounts",
+        "Bug fixes and small updates",
+        "Ongoing feature development",
+        "Hosting, database, and infrastructure support",
       ],
-      closing: "Lenzro is built for businesses, not experiments.",
+      closing: "Most of our client relationships continue well past launch.",
     },
   ];
 
@@ -118,12 +114,6 @@ const FAQ = () => {
           </p>
         </div>
         <div className="flex gap-5 items-center justify-center ">
-          <Button
-            variant="ghost"
-            className="md:w-full px-5 py-2 text-sm h-10 rounded-sm cursor-pointer transition-all duration-300 border"
-          >
-            View Docs
-          </Button>
           <Button className="md:w-full px-5 py-2 text-sm h-10 rounded-sm cursor-pointer transition-all duration-300 border">
             Contact Us
           </Button>

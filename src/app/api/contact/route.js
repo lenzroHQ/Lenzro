@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const REQUIRED_FIELDS = ["name", "email", "budget", "timeline", "goal", "reason"];
+const REQUIRED_FIELDS = ["name", "email"];
+const OPTIONAL_FIELDS = [
+  ["website", "Website"],
+  ["budget", "Budget"],
+  ["timeline", "Timeline"],
+  ["message", "Message"],
+  ["goal", "What they're looking to achieve"],
+  ["reason", "What made them reach out"],
+];
 
 export async function POST(request) {
   if (!process.env.WEB3FORMS_ACCESS_KEY) {
@@ -19,7 +27,7 @@ export async function POST(request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { name, email, website, budget, timeline, goal, reason } = body ?? {};
+  const { name, email } = body ?? {};
 
   for (const field of REQUIRED_FIELDS) {
     if (!body?.[field] || typeof body[field] !== "string" || !body[field].trim()) {
@@ -34,6 +42,13 @@ export async function POST(request) {
     return NextResponse.json({ error: "Invalid email address." }, { status: 400 });
   }
 
+  const extra = {};
+  for (const [key, label] of OPTIONAL_FIELDS) {
+    if (typeof body[key] === "string" && body[key].trim()) {
+      extra[label] = body[key].trim();
+    }
+  }
+
   try {
     const res = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -46,11 +61,7 @@ export async function POST(request) {
         subject: `New project inquiry from ${name}`,
         from_name: name,
         email,
-        Website: website?.trim() || "—",
-        Budget: budget,
-        Timeline: timeline,
-        "What they're looking to achieve": goal,
-        "What made them reach out": reason,
+        ...extra,
       }),
     });
 

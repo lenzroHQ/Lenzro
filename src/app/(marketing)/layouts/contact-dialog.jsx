@@ -92,7 +92,6 @@ export function ContactDialog({ trigger }) {
       </DialogTrigger>
 
       <DialogContent
-        showCloseButton={false}
         className="max-h-[90vh] w-[calc(100%-2rem)] max-w-3xl overflow-y-auto scrollbar-pill  rounded-3xl border-none bg-white p-8 sm:p-10 text-neutral-900 shadow-2xl"
       >
         {/* Floating circular close button */}

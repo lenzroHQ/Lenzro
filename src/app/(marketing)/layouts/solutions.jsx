@@ -11,6 +11,7 @@ const CASES = [
     title:
       "Lenzro Car Hire – the all-in-one platform for car rental businesses",
     image: "/car.png",
+    url: "https://car-hire-two.vercel.app",
     badges: [{ label: "Lenzro" }, { label: "SaaS Platform" }],
     techStack: "Next.js, Supabase",
     timeline: "Ongoing",
@@ -20,14 +21,61 @@ const CASES = [
     ],
   },
   {
-    tags: ["UX Audit", "Product Redesign", "Web Development"],
-    title:
-      "KlickEx – frictionless cross-border payments for the Pacific Island communities",
-    image: "/cases/klickex.png",
-    badges: [{ label: "NomuPay" }, { label: "New Zealand", flag: "🇳🇿" }],
-    techStack: "Next.js, TypeScript, React Redux",
-    timeline: "6 months",
-    results: ["3x faster remittance flow", "40% drop in support tickets"],
+    tags: ["Web Development", "Student System", "PostgreSQL"],
+    title: "Barsita – become a world-class barista at Nairobi's Coffee Academy",
+    image: "/aa.png",
+    badges: [
+      { label: "Barsita" },
+      { label: "Eastleigh, Nairobi, Kenya", flag: "🇰🇪" },
+    ],
+    techStack: "Next.js, PostgreSQL",
+    timeline: "Ongoing",
+    results: [
+      "Real students, real certificates, real jobs behind the bar",
+      "A certification-day gallery showcasing every graduating class",
+    ],
+  },
+  {
+    tags: ["Web Development", "Community", "Nonprofit"],
+    title: "Anchor Point Initiative – building community by helping the youth",
+    image: "/api.png",
+    url: "https://anchor-point-initiative.vercel.app/",
+    badges: [
+      { label: "Anchor Point Initiative" },
+      { label: "Community Mental Health" },
+    ],
+    techStack: "Next.js, Tailwind CSS",
+    timeline: "Ongoing",
+    results: [
+      "A safe, supportive space for youth mental health group programs",
+      "Community hub for events, resources & donations",
+    ],
+  },
+  {
+    tags: ["SaaS", "Web Development", "Healthcare"],
+    title: "Mayo – book appointments with trusted doctors",
+    image: "/amaya.png",
+    url: "https://healthyfeeling.netlify.app/",
+    badges: [{ label: "Mayo" }, { label: "Healthcare SaaS" }],
+    techStack: "MongoDB, Express, React, Node.js",
+    timeline: "Ongoing",
+    results: [
+      "Browse trusted doctors & book appointments hassle-free",
+      "One platform connecting patients, doctors & hospitals",
+    ],
+  },
+  {
+    tags: ["SaaS", "Fleet Management", "Web Development"],
+    title: "Gam Oil Trading Limited – fleet management for petroleum distribution",
+    image: "/gam.png",
+    url: "https://fleet-frontend-zeta.vercel.app/",
+    badges: [{ label: "Gam Oil Trading Limited" }, { label: "Fleet & Petroleum" }],
+    techStack: "MongoDB, Express, React, Node.js",
+    timeline: "Ongoing",
+    results: [
+      "Authenticated dashboard to manage the entire fleet",
+      "Built for real-time petroleum distribution logistics",
+    ],
   },
 ];
 
@@ -50,7 +98,7 @@ const CaseCard = ({ project, progress, range }) => {
             <img
               src={project.image}
               alt={project.title}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-left"
             />
           </div>
 
@@ -65,14 +113,15 @@ const CaseCard = ({ project, progress, range }) => {
               {project.title}
             </h3>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href={"https://car-hire-two.vercel.app"} 
-               target="_blank" className="w-full">
-                <Button className="h-15 w-100 text-lg display-lg">
-                  Visit Project <ArrowTopRightIcon />
-                </Button>
-              </Link>
-            </div>
+            {project.url && (
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href={project.url} target="_blank" className="w-full">
+                  <Button className="h-15 w-100 text-lg display-lg">
+                    Visit Project <ArrowTopRightIcon />
+                  </Button>
+                </Link>
+              </div>
+            )}
 
             <div className="mt-10 grid grid-cols-2 gap-6 border-t border-neutral-200 pt-6">
               <div>

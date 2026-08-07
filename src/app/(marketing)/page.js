@@ -9,6 +9,7 @@ import Solutions from "./layouts/solutions";
 import BlackBoard from "./layouts/blackboard";
 import Community from "./layouts/community";
 import FAQ from "./layouts/faq";
+import Contact from "./layouts/contact";
 import LenzroDemo from "./layouts/lenzrodemo";
 
 export default function Home() {
@@ -18,11 +19,9 @@ export default function Home() {
       <Trusted />
       <Tour />
       <Solutions />
-      {/* 
-      <BlackBoard /> */}
-      {/* <Community />
-      <FAQ /> */}
-      {/* <LenzroDemo /> */}
+      <Community />
+      <FAQ /> 
+      <Contact/>
     </div>
   );
 }
