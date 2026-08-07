@@ -2,7 +2,6 @@ import { M_PLUS_1_Code, Manrope, Outfit } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import CookieConsent from "@/components/shared/CookieConsent";
-import { AuthProvider } from "@/lib/auth-provider";
 import { Toaster } from "sonner";
 
 const outfit = Outfit({
@@ -91,11 +90,9 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>
             <CookieConsent />
             {children}
             <Toaster position="top-center" richColors />
-          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
