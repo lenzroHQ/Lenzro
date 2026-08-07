@@ -39,6 +39,11 @@ const SidebarRow = ({
   const isActive = activeItem === label;
 
   const lowercaseLabel = label.toLowerCase();
+  // Use workspace ID for dashboard link
+  const href =
+    label === "Dashboard"
+      ? "/abdiaziz-mohamed/dashboard"
+      : `/${lowercaseLabel}`;
   return (
     <Link
       onClick={() => setActiveItem(label)}
@@ -47,7 +52,7 @@ const SidebarRow = ({
           ? `${textColor} bg-zinc-900/40`
           : "text-zinc-400 hover:text-white hover:bg-zinc-900/60"
       }`}
-      href={`/client/${lowercaseLabel}`}
+      href={href}
     >
       <div className="flex items-center gap-3 overflow-hidden">
         <div className="relative flex items-center justify-center h-5 w-5 shrink-0">

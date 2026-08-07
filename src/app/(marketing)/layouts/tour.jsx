@@ -1,229 +1,122 @@
 "use client";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import React, { useState, useEffect } from "react";
-import { Timeline } from "@/components/ui/timeline";
+
+import React from "react";
+
+const SERVICES = [
+  {
+    number: "01",
+    title: "Website Redesign",
+    description:
+      "Modernize outdated websites with improved UX/UI, performance, and conversion-focused design.",
+    imgSrc: "/red.png",
+    videoSrc:
+      "https://phenomenonstudio.com/wp-content/uploads/2025/03/Website-redesign.mp4",
+  },
+  {
+    number: "02",
+    title: "Online Presence",
+    description:
+      "Get discovered — Google Maps, social profiles, business email, and targeted ads set up right.",
+    imgSrc: "/presence.png",
+    videoSrc: "/onlinepresence.mp4",
+  },
+  {
+    number: "03",
+    title: "Website Development",
+    description:
+      "Design and build high-performing marketing sites, web apps, and SaaS platforms.",
+    imgSrc: "/eas.png",
+    videoSrc:
+      "https://phenomenonstudio.com/wp-content/uploads/2025/02/Website-development.mp4",
+  },
+  {
+    number: "04",
+    title: "SaaS Application Creation",
+    description:
+      "Turn your idea into a scalable SaaS product, from architecture to polished UI.",
+    imgSrc: "/saas.png",
+    videoSrc:
+      "https://phenomenonstudio.com/wp-content/uploads/2025/03/tinyvid_optimized_4_273c0b39593e094d9f8cc0a654963dd3.mp4",
+  },
+  {
+    number: "05",
+    title: "Mobile Development",
+    description:
+      "Ship responsive Android and iOS apps that feel native across every device.",
+    imgSrc: "/mobile.jpg",
+    videoSrc:
+      "https://phenomenonstudio.com/wp-content/uploads/2025/03/tinyvid_optimized_3_991b1abdaf86fca5400630dcdf446984.mp4",
+  },
+];
 
 const Tour = () => {
-
-  const data = [
-    {
-      title: "Create your account",
-      content: (
-        <div>
-          <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200">
-            Create your Lenzro account and instantly get a dedicated workspace
-            where your business lives — clients, payments, files, website, and
-            AI.
-          </p>
-          <div className="grid grid-cols-2 gap-4">
-            <img
-              src="https://assets.aceternity.com/templates/startup-1.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/templates/startup-2.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/templates/startup-3.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/templates/startup-4.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-          </div>
-        </div>
-      ),
-    },
-
-    {
-      title: "Set up your workspace",
-      content: (
-        <div>
-          <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200">
-            Define how your business works. Add your brand, business type, and
-            core modules. Lenzro adapts the system to you — not the other way
-            around.
-          </p>
-          <div className="grid grid-cols-2 gap-4">
-            <img
-              src="https://assets.aceternity.com/pro/hero-sections.png"
-              alt="hero template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/features-section.png"
-              alt="feature template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/pro/bento-grids.png"
-              alt="bento template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/cards.png"
-              alt="cards template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-          </div>
-        </div>
-      ),
-    },
-
-    {
-      title: "Create & connect pages",
-      content: (
-        <div>
-          <p className="mb-4 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200">
-            Pages are where work happens. Each page can hold widgets, data,
-            files, and views — all connected and searchable.
-          </p>
-
-          <div className="mb-8 space-y-2">
-            <div className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300">
-              • Client pages with notes, payments, and history
-            </div>
-            <div className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300">
-              • Order pages linked to invoices and delivery status
-            </div>
-            <div className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300">
-              • Project pages with tasks, files, and timelines
-            </div>
-            <div className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300">
-              • Website pages connected directly to live content
-            </div>
-            <div className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300">
-              • Internal pages for strategy, notes, and planning
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <img
-              src="https://assets.aceternity.com/templates/startup-1.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/templates/startup-2.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/templates/startup-3.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/templates/startup-4.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-          </div>
-        </div>
-      ),
-    },
-
-    {
-      title: "Run everything with your AI agent",
-      content: (
-        <div>
-          <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200">
-            Your Lenzro AI works from the Blackboard — tracking activity,
-            updating pages, sending follow-ups, and keeping your business
-            organized.
-          </p>
-
-          <div className="mb-8 space-y-2">
-            <div className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300">
-              • Updates pages automatically
-            </div>
-            <div className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300">
-              • Tracks orders, payments, and revenue
-            </div>
-            <div className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300">
-              • Replies to clients and sends follow-ups
-            </div>
-            <div className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300">
-              • Organizes files and business data
-            </div>
-            <div className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300">
-              • Keeps dashboards and priorities up to date
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <img
-              src="https://assets.aceternity.com/pro/hero-sections.png"
-              alt="hero template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/features-section.png"
-              alt="feature template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/pro/bento-grids.png"
-              alt="bento template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/cards.png"
-              alt="cards template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-          </div>
-        </div>
-      ),
-    },
-  ];
-
-
-  
   return (
-    <div className="relative w-full overflow-clip">
-      <Timeline data={data} />
+    <div className="relative w-full overflow-clip p-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between">
+        <div className="header space-y-4">
+          <h1 className="display-lg">
+            Move on to Our tech <br /> to elevate your business{" "}
+          </h1>
+          <p className="hidden md:flex md:text-lg">
+            Great products don't happen by accident. As a digital product design
+            and development agency, <br /> we partner with venture-backed
+            startups and established market leaders alike, <br /> combining
+            product strategy, UX/UI design, and scalable web and mobile
+            development under one roof.
+          </p>
+        </div>
+        <div className="font-semibold text-4xl mt-4 md:mt-0 md:text-5xl text-green-500">
+          <p>OUR SERVICES</p>
+        </div>
+      </div>
+
+      {/* Our Services */}
+      <div className="mt-16 rounded-2xl  sm:p-8 md:p">
+        {/* Grid matching the UI layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-b border-r border-neutral-800 divide-y md:divide-y-0 md:divide-x divide-neutral-800">
+          {SERVICES.map((card) => (
+            <div
+              key={card.number}
+              className="group relative p-6 md:p-8 flex flex-col justify-between  min-h-[360px] transition-colors duration-300 md:hover:bg-neutral-100/40 overflow-hidden  border border-transparent md:hover:border-neutral-200"
+            >
+              {/* Card Header Number */}
+              <div className="text-sm font-mono text-neutral-500 mb-6 relative z-20">
+                {card.number}
+              </div>
+
+              {/* Video background layer with gradient overlay */}
+              <div className="absolute inset-0 z-0 transition-opacity duration-500 pointer-events-none overflow-hidden">
+                <video
+                  src={card.videoSrc}
+                  poster={card.imgSrc}
+                  className="w-full h-full object-cover scale-105 md:group-hover:scale-100 transition-transform duration-700 ease-out"
+                  autoPlay
+                  playsInline
+                  muted
+                  loop
+                  preload="none"
+                />
+                {/* Dark Vignette/Gradient overlay to make text pop */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30" />
+              </div>
+
+              {/* Text overlay & Floating Arrow Button */}
+              <div className="relative z-10 mt-auto pt-12 flex items-end justify-between gap-4">
+                <div className="max-w-[80%]">
+                  <h3 className="display-md text-2xl mb-2 text-white tracking-wide">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm text-neutral-400 leading-relaxed">
+                    {card.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Tour;
-

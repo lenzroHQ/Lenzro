@@ -9,7 +9,7 @@ export default function RootLayout({ children }) {
       <AuthRedirect />
       <Navbar />
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

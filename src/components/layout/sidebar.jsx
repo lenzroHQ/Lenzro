@@ -40,8 +40,8 @@ import CalendarSidebar from "./calendar-sidebar";
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const pathname = usePathname();
-  const { workspace } = useParams() ?? {};
-  const base = workspace ? `/app/${workspace}` : "/client";
+  const { workspaceId } = useParams() ?? {};
+  const base = workspaceId ? `/${workspaceId}` : "/client";
 
   // Collapse sidebar when navigating to blackboard
   useEffect(() => {

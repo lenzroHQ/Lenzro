@@ -4,40 +4,40 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { NavigationMenuLinks } from "./navigationlink";
 import { Button } from "../ui/button";
-import { ModeToggle } from "./ModeToggle";
-import { SearchBarWithShortcut } from "./searchbarwithshortcut";
-import { IconSearch } from "@tabler/icons-react";
-import { useSearchStore } from "@/app/store/searchStore";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowRight } from "lucide-react";
+import { ContactDialog } from "@/app/(marketing)/layouts/contact-dialog";
+
+const NAV_LINKS = [
+  { href: "/", label: "Docs" },
+  { href: "/solutions", label: "Solutions" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/community", label: "Community" },
+  { href: "/docs/black-board", label: "BlackBoard" },
+];
 
 const MobileMenu = ({ open, onClose }) => (
   <AnimatePresence>
     {open && (
       <motion.div
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "100%" }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed top-14 right-0 w-full h-screen bg-white dark:bg-black z-40 shadow-lg"
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+        className="fixed top-14 inset-x-0 z-40 flex h-[calc(100vh-3.5rem)] flex-col bg-white dark:bg-black px-5 pt-2 pb-6 shadow-lg"
       >
-        <div className="py-5 px-4 pt-6 flex flex-col gap-6">
-          {/* Pass onClose so links close the menu */}
-          <Link href="/" className="text-xl" onClick={onClose}>
-            Docs
-          </Link>
-          <Link href="/solutions" className="text-xl" onClick={onClose}>
-            Solutions
-          </Link>
-          <Link href="/pricing" className="text-xl" onClick={onClose}>
-            Pricing
-          </Link>
-          <Link href="/community" className="text-xl" onClick={onClose}>
-            Community
-          </Link>
-          <Link href="/docs/black-board" className="text-xl" onClick={onClose}>
-            BlackBoard
-          </Link>
-        </div>
+        <nav className="flex flex-col">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={onClose}
+              className="flex items-center justify-between border-b border-neutral-100 dark:border-neutral-900 py-5 text-2xl font-medium text-black dark:text-white"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       </motion.div>
     )}
   </AnimatePresence>
@@ -45,11 +45,10 @@ const MobileMenu = ({ open, onClose }) => (
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { mobileOpen, setMobileOpen } = useSearchStore();
 
   return (
     <>
-      <nav className="fixed bg-white/60 dark:bg-black/70 backdrop-blur-3xl mx-auto border-b inset-x-0 z-50 lg:w-full">
+      <nav className="sticky top-0 bg-white/60 dark:bg-black/70 backdrop-blur-3xl mx-auto border-b inset-x-0 z-50 lg:w-full">
         {/* <ScrollProgress className="top-15" /> */}
 
         {/* Desktop Navbar */}
@@ -65,22 +64,13 @@ const Navbar = () => {
                   alt=""
                   className="h-5 w-5"
                 />
-                <span className="font-medium text-black dark:text-white">
+                <span className="font-medium text-lg text-black dark:text-white">
                   Lenzro
                 </span>
               </Link>
               <NavigationMenuLinks />
             </div>
-
-            <div className="flex space-x-2 items-center">
-              <SearchBarWithShortcut />
-              {/* <ModeToggle /> */}
-              <Link href="/auth">
-                <Button className="px-5 py-2 text-xs h-7 rounded-sm cursor-pointer transition-all duration-300 border">
-                  Get Started
-                </Button>
-              </Link>
-            </div>
+              <ContactDialog/>
           </div>
         </div>
 
@@ -104,39 +94,21 @@ const Navbar = () => {
             </div>
 
             <div className="flex space-x-5 items-center">
-              {/* Mobile search trigger */}
-              <button onClick={() => setMobileOpen(true)}>
-                <IconSearch className="size-5" />
-              </button>
-
               {/* Hamburger/X menu trigger */}
               <button
-                className="relative w-7 h-7 flex flex-col items-center justify-center"
+                className="flex size-10 items-center justify-center rounded-md bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white transition-colors"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Toggle menu"
               >
-                <motion.div
-                  initial={false}
-                  animate={
-                    menuOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }
-                  }
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute w-5 h-[2px] dark:bg-white bg-black"
-                />
-                <motion.div
-                  initial={false}
-                  animate={
-                    menuOpen ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }
-                  }
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute w-5 h-[2px] dark:bg-white bg-black"
-                />
+                {menuOpen ? (
+                  <X className="size-5" />
+                ) : (
+                  <Menu className="size-5" />
+                )}
               </button>
             </div>
           </div>
 
-          {/* Mobile search drawer */}
-          <SearchBarWithShortcut mobileTrigger />
 
           {/* Mobile menu drawer */}
           <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />

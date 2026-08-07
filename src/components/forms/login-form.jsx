@@ -59,7 +59,7 @@ async function handlePostAuth(user, router, searchParams) {
   // Redirect — honour ?next= if present and it targets /app, otherwise go
   // straight to the user's workspace.
   const next = searchParams?.get("next");
-  const target = next && next.startsWith("/app") ? next : `/app/${workspace}`;
+  const target = next && next.startsWith("/") ? next : `/${workspace}`;
   router.replace(target);
 }
 

@@ -18,10 +18,11 @@ export default function Home() {
       <Trusted />
       <Tour />
       <Solutions />
-      <BlackBoard />
-      <Community />
-      <FAQ />
-      <LenzroDemo />
+      {/* 
+      <BlackBoard /> */}
+      {/* <Community />
+      <FAQ /> */}
+      {/* <LenzroDemo /> */}
     </div>
   );
 }

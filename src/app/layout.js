@@ -1,11 +1,17 @@
-import { M_PLUS_1_Code, Outfit } from "next/font/google";
+import { M_PLUS_1_Code, Manrope, Outfit } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import CookieConsent from "@/components/shared/CookieConsent";
 import { AuthProvider } from "@/lib/auth-provider";
+import { Toaster } from "sonner";
 
 const outfit = Outfit({
   variable: "--font-outfit",
+  subsets: ["latin"],
+  weight: "400",
+});
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
   weight: "400",
 });
@@ -63,7 +69,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${mplusone.variable} ${outfit.variable} antialiased`}
+      className={`${mplusone.variable} ${outfit.variable} ${manrope.variable} antialiased light`}
       suppressHydrationWarning
     >
       <head>
@@ -81,13 +87,14 @@ export default function RootLayout({ children }) {
       <body>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
           <AuthProvider>
             <CookieConsent />
             {children}
+            <Toaster position="top-center" richColors />
           </AuthProvider>
         </ThemeProvider>
       </body>

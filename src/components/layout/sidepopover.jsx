@@ -31,7 +31,7 @@ import { useParams } from "next/navigation";
 const SidePopover = () => {
   const { user, signOut } = useAuthContext();
   const router = useRouter();
-  const { workspace } = useParams() ?? {};
+  const { workspaceId: workspace } = useParams() ?? {};
 
   const handleLogout = async () => {
     // signOut() in auth-provider clears Firebase + server cookie + localStorage
@@ -92,7 +92,7 @@ const SidePopover = () => {
         <MenuAction
           icon={<Settings size={18} />}
           label="Settings"
-          onClick={() => workspace && router.push(`/app/${workspace}/settings`)}
+          onClick={() => workspace && router.push(`/${workspace}/settings`)}
         />
         <MenuAction icon={<Palette size={18} />} label="Themes" />
         <MenuAction icon={<Keyboard size={18} />} label="Keyboard shortcuts" />

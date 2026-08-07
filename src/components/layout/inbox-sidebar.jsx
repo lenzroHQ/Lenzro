@@ -93,9 +93,9 @@ function FilterRow({ icon: Icon, label, href, active, badge, dot }) {
 }
 
 const InboxSidebar = () => {
-  const { workspace } = useParams() ?? {};
+  const { workspaceId: workspace } = useParams() ?? {};
   const searchParams = useSearchParams();
-  const base = workspace ? `/app/${workspace}/inbox` : "/client/inbox";
+  const base = workspace ? `/${workspace}/inbox` : "/client/inbox";
   const activeFilter = searchParams?.get("filter") ?? "inbox";
   const [showMore, setShowMore] = useState(false);
 

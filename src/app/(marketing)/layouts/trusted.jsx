@@ -1,69 +1,52 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
-import {
-  ScrollVelocityContainer,
-  ScrollVelocityRow,
-} from "@/components/ui/scroll-based-velocity";
+import { Play } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const STATS = [
+  { value: "500M+", label: "investments raised by our clients" },
+  { value: "x2", label: "avg projects per client — most come back" },
+  { value: "5.0", label: "on clutch — 40+ reviews" },
+  { value: "35%", label: "conversion lift — klickex case" },
+];
 
 const Trusted = () => {
-  const solutions = [
-    { icon: "https://notus-agent-marketing-template.vercel.app/logos/4.png" },
-    { icon: "https://notus-agent-marketing-template.vercel.app/logos/7.png" },
-    { icon: "https://notus-agent-marketing-template.vercel.app/logos/1.png" },
-    { icon: "https://notus-agent-marketing-template.vercel.app/logos/2.png" },
-    { icon: "https://notus-agent-marketing-template.vercel.app/logos/8.png" },
-    { icon: "https://notus-agent-marketing-template.vercel.app/logos/5.png" },
-    { icon: "https://notus-agent-marketing-template.vercel.app/logos/10.png" },
-    { icon: "https://notus-agent-marketing-template.vercel.app/logos/6.png" },
-  ];
-
   return (
-    <div className="flex flex-col items-center mt-10 md:mt-0">
-      {/* Title */}
-      <div className="w-full flex items-center justify-center mb-6">
-        <p className="uppercase MPlusOne gradient-text text-sm">
-          Trusted by Fast Growing Startups and Businesses
-        </p>
+    <div className="grid gap-8 rounded-2xl  p-4 sm:p-6 md:grid-cols-2 md:items-stretch md:gap-6 md:p-8">
+      <div className="relative overflow-hidden rounded-xl">
+        <video
+          preload="metadata"
+          className="h-full w-full object-cover"
+          style={{ aspectRatio: "1.33" }}
+          src="https://phenomenonstudio.com/wp-content/uploads/2026/04/showreel_homepage_2_tiny-2.mp4"
+          autoPlay
+          playsInline
+          muted
+          loop
+        />
       </div>
 
-      {/* Scrolling logos */}
-      <div className="relative flex w-full items-center justify-center overflow-hidden">
-        <ScrollVelocityContainer>
-          <ScrollVelocityRow baseVelocity={5} direction={1}>
-            {solutions.map((item, idx) => (
-              <motion.div
-                key={idx}
-                className="relative h-[14vh] flex items-center justify-center mx-6 group will-change-transform"
-                whileHover="hover"
-                initial="initial"
-              >
-                {/* Animated overlay */}
-                <motion.div
-                  className="absolute bottom-0 left-0 w-full opacity-10 z-10 will-change-transform"
-                  variants={{
-                    hover: { height: "100%" },
-                    initial: { height: 0 },
-                  }}
-                  style={{ height: 0 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                />
-
-                {/* Icon */}
-                <img
-                  alt="logo"
-                  className="relative z-20 object-contain transition-all duration-500 dark:invert dark:filter h-10 w-25 group-hover:brightness-125"
-                  src={item.icon}
-                  style={{ willChange: "transform, opacity" }}
-                />
-              </motion.div>
-            ))}
-          </ScrollVelocityRow>
-        </ScrollVelocityContainer>
-
-        {/* Gradient fade edges */}
-        <div className="from-background pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r"></div>
-        <div className="from-background pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l"></div>
+      <div className="flex flex-col justify-center text-white">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+          Our performance
+        </p>
+        <div className="mt-4 grid grid-cols-2 border-t border-white/15">
+          {STATS.map((stat, i) => (
+            <div
+              key={stat.value}
+              className={cn(
+                "flex flex-col items-center justify-center gap-2 border-white/15 px-6 py-10 text-center",
+                i % 2 === 0 && "border-r",
+                i < 2 && "border-b"
+              )}
+            >
+              <h3 className="text-5xl font-semibold">{stat.value}</h3>
+              <p className="max-w-[18ch] text-sm text-white/60">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -275,8 +275,8 @@ const CalendarSidebar = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const workspace = params?.workspace;
-  const base = workspace ? `/app/${workspace}` : "/client";
+  const workspace = params?.workspaceId;
+  const base = workspace ? `/${workspace}` : "/client";
 
   // Parse date from URL or use current date
   const dateParam = searchParams.get("date");

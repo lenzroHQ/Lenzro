@@ -1,5 +1,6 @@
-import { getIntroDoc } from "@/lib/docs-registry";
 import DocPageWrapper from "@/components/documentation/doc-page-wrapper";
+import { getIntroDoc } from "@/lib/docs-registry";
+
 
 export default function DocsPage() {
   const doc = getIntroDoc();

@@ -25,7 +25,7 @@ import SidebarRow from "./sidebar-row";
 const HomeSidebar = () => {
   const [activeItem, setActiveItem] = useState("");
   const params = useParams();
-  const workspace = params.workspace;
+  const workspace = params.workspaceId;
 
   // Helper for consistent styling
   const navItemClasses = (itemLabel) =>
@@ -113,7 +113,7 @@ const HomeSidebar = () => {
             {/* SECTION: Plain Bottom Navigation */}
             <nav className="flex flex-col gap-1 mt-2">
               <Link
-                href={`/app/${workspace}/settings`}
+                href={`/${workspace}/settings`}
                 className={navItemClasses("Settings")}
                 onClick={() => setActiveItem("Settings")}
               >
@@ -122,7 +122,7 @@ const HomeSidebar = () => {
               </Link>
 
               <Link
-                href={`/app/${workspace}/marketplace`}
+                href={`/${workspace}/marketplace`}
                 className={navItemClasses("Marketplace")}
                 onClick={() => setActiveItem("Marketplace")}
               >
@@ -131,7 +131,7 @@ const HomeSidebar = () => {
               </Link>
 
               <Link
-                href={`/app/${workspace}/bin`}
+                href={`/${workspace}/bin`}
                 className={navItemClasses("Bin")}
                 onClick={() => setActiveItem("Bin")}
               >

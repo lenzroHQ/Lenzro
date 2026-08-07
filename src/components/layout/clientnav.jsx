@@ -26,8 +26,8 @@ import {
 
 const ClientNavbar = () => {
   const pathname = usePathname();
-  const { workspace } = useParams() ?? {};
-  const base = workspace ? `/app/${workspace}` : "/client";
+  const { workspaceId: workspace } = useParams() ?? {};
+  const base = workspace ? `/${workspace}` : "/client";
   const [user, setUser] = useState({ displayName: "", photoURL: "" });
   const [loading, setLoading] = useState(true);
   const [popoverOpen, setPopoverOpen] = useState(false);

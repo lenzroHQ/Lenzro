@@ -46,7 +46,7 @@ export default function AuthRedirect() {
         if (res.ok) {
           storeUser(sessionUser);
           storeWorkspace(workspace);
-          router.replace(`/app/${workspace}`);
+          router.replace(`/${workspace}`);
         }
       })
       .catch(console.error);
