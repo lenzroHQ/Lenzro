@@ -13,7 +13,6 @@ const NAV_LINKS = [
   { href: "/solutions", label: "Solutions" },
   { href: "/pricing", label: "Pricing" },
   { href: "/community", label: "Community" },
-  { href: "/docs/black-board", label: "BlackBoard" },
 ];
 
 const MobileMenu = ({ open, onClose }) => (

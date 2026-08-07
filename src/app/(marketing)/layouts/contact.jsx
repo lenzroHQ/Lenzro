@@ -24,7 +24,7 @@ const TEAM = [
     role: "Co-Founder",
     email: "abdiaziz@lenzro.com",
     linkedin: null,
-    prompt: "Have a partnership in mind?",
+    prompt: "Have a project to discuss?",
   },
 ];
 

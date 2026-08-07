@@ -1,7 +1,6 @@
 "use client";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
-import BlackboardInput from "@/components/blackboard/blackboard-input";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { useState, useEffect } from "react";
 import { Spinner } from "@/components/ui/spinner";
@@ -55,8 +54,6 @@ export default function BlackboardPage() {
           <p>Let’s plan today.</p>
         </AnimatedShinyText>
       </div>
-
-      <BlackboardInput />
     </div>
   );
 }
