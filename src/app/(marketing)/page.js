@@ -6,11 +6,10 @@ import Hero from "./layouts/hero";
 import Trusted from "./layouts/trusted";
 import Tour from "./layouts/tour";
 import Solutions from "./layouts/solutions";
-import BlackBoard from "./layouts/blackboard";
 import Community from "./layouts/community";
 import FAQ from "./layouts/faq";
 import Contact from "./layouts/contact";
-import LenzroDemo from "./layouts/lenzrodemo";
+
 
 export default function Home() {
   return (
