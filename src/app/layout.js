@@ -1,7 +1,5 @@
 import { M_PLUS_1_Code, Manrope, Outfit } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import CookieConsent from "@/components/shared/CookieConsent";
 import { Toaster } from "sonner";
 
 const outfit = Outfit({
@@ -68,7 +66,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${mplusone.variable} ${outfit.variable} ${manrope.variable} antialiased light`}
+      className={`${mplusone.variable} ${outfit.variable} ${manrope.variable} antialiased dark`}
       suppressHydrationWarning
     >
       <head>
@@ -84,16 +82,8 @@ export default function RootLayout({ children }) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
       </head>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-            <CookieConsent />
             {children}
             <Toaster position="top-center" richColors />
-        </ThemeProvider>
       </body>
     </html>
   );

@@ -116,7 +116,7 @@ const CaseCard = ({ project, progress, range }) => {
             {project.url && (
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link href={project.url} target="_blank" className="w-full">
-                  <Button className="h-15 w-100 text-lg display-lg">
+                  <Button className="h-15 md:w-100 text-lg display-lg">
                     Visit Project <ArrowTopRightIcon />
                   </Button>
                 </Link>
