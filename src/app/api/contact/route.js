@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const REQUIRED_FIELDS = ["name", "email"];
@@ -11,9 +12,17 @@ const OPTIONAL_FIELDS = [
   ["reason", "What made them reach out"],
 ];
 
+const CONTACT_FROM = "Lenzro <onboarding@resend.dev>";
+const CONTACT_TO = "team@lenzro.com";
+
+const escapeHtml = (str) =>
+  str.replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]
+  );
+
 export async function POST(request) {
-  if (!process.env.WEB3FORMS_ACCESS_KEY) {
-    console.error("WEB3FORMS_ACCESS_KEY is not configured");
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY is not configured");
     return NextResponse.json(
       { error: "Contact form is not configured yet." },
       { status: 500 }
@@ -49,26 +58,33 @@ export async function POST(request) {
     }
   }
 
+  const rows = [["Name", name.trim()], ["Email", email.trim()], ...Object.entries(extra)];
+  const html = `
+    <h2>New project inquiry from ${escapeHtml(name.trim())}</h2>
+    <table cellpadding="6" cellspacing="0">
+      ${rows
+        .map(
+          ([label, value]) =>
+            `<tr><td style="font-weight:600;vertical-align:top;">${escapeHtml(
+              label
+            )}</td><td style="white-space:pre-wrap;">${escapeHtml(value)}</td></tr>`
+        )
+        .join("")}
+    </table>
+  `;
+
   try {
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        access_key: process.env.WEB3FORMS_ACCESS_KEY,
-        subject: `New project inquiry from ${name}`,
-        from_name: name,
-        email,
-        ...extra,
-      }),
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const { error } = await resend.emails.send({
+      from: CONTACT_FROM,
+      to: CONTACT_TO,
+      replyTo: email.trim(),
+      subject: `New project inquiry from ${name.trim()}`,
+      html,
     });
 
-    const data = await res.json().catch(() => ({}));
-
-    if (!res.ok || !data.success) {
-      console.error("Web3Forms error:", data);
+    if (error) {
+      console.error("Resend error:", error);
       return NextResponse.json({ error: "Failed to send message." }, { status: 502 });
     }
 

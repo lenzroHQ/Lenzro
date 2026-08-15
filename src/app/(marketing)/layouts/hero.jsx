@@ -24,9 +24,9 @@ const Hero = () => {
             </Button>
           }
         />
-        <Button className="h-12 w-full md:w-50  text-lg display-lg">
+        {/* <Button className="h-12 w-full md:w-50  text-lg display-lg">
           Our Projects <ChevronRight />
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

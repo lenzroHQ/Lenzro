@@ -7,37 +7,37 @@ const RATINGS = [
   { source: "DesignRush", score: "4.9", mark: "D" },
 ];
 
-// TODO: swap these placeholders for real client quotes/videos before launch.
+// TODO: add a real quote from each client, then this component will show it automatically.
 const TESTIMONIALS = [
   {
-    name: "Add client name",
-    role: "Lenzro Car Hire",
+    name: "Ali Abdalla",
+    role: "Business Owner, Lenzro Car Hire",
     avatar: "/car.png",
     video: null,
     quote:
-      "Add a real quote from this client here once you have one — keep it short and specific.",
+      "Working with the team was a great experience. They understood what we needed and delivered a professional solution that made a real difference for our business. Communication was smooth, and the final result exceeded our expectations.",
   },
   {
-    name: "Add client name",
-    role: "Barsita, Coffee Academy",
+    name: "Abdirahman Muqtar",
+    role: "Barista Manager, Islii",
     avatar: "/aa.png",
     video: null,
     quote:
-      "Add a real quote from this client here once you have one — keep it short and specific.",
+      "The team was professional, responsive, and easy to work with throughout the project. They took the time to understand our needs and delivered quality work that we were genuinely happy with. I would definitely recommend working with them.",
   },
   {
-    name: "Add client name",
-    role: "Anchor Point Initiative",
+    name: "Mohamed Shariif",
+    role: "Advisor, Anchor Point Initiative",
     avatar: "/api.png",
     video: null,
     quote:
-      "Add a real quote from this client here once you have one — keep it short and specific.",
+      "We appreciated the professionalism and attention to detail throughout our work together. The team was reliable, understood our goals, and delivered a solution that aligned well with our vision. It was a positive experience from start to finish.",
   },
 ];
 
 const Community = () => {
   return (
-    <section className="w-full px-2 sm:px-4 md:px-8 py-16">
+    <section id="testimonials" className="w-full px-2 sm:px-4 md:px-8 py-16">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
@@ -84,14 +84,14 @@ const Community = () => {
                     <Play className="size-3.5 fill-current" />
                   </span>
                 </button>
-              ) : (
+              ) : item.quote ? (
                 <div className="flex flex-1 flex-col justify-between">
                   <p className="text-lg leading-relaxed text-neutral-700">
                     {item.quote}
                   </p>
                   <Quote className="mt-6 size-6 text-neutral-300" />
                 </div>
-              )}
+              ) : null}
             </div>
           ))}
         </div>

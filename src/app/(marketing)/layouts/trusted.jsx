@@ -4,15 +4,15 @@ import { Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const STATS = [
-  { value: "500M+", label: "investments raised by our clients" },
-  { value: "x2", label: "avg projects per client — most come back" },
-  { value: "5.0", label: "on clutch — 40+ reviews" },
-  { value: "35%", label: "conversion lift — klickex case" },
+  { value: "100%", label: "project delivery rate" },
+  { value: "x2", label: "tech that doubles your business flow speed" },
+  { value: "100%", label: "easy to work with" },
+  { value: "You", label: "make your life easier by contacting us" },
 ];
 
 const Trusted = () => {
   return (
-    <div className="grid gap-8 rounded-2xl  p-4 sm:p-6 md:grid-cols-2 md:items-stretch md:gap-6 md:p-8">
+    <div id="about" className="grid gap-8 rounded-2xl  p-4 sm:p-6 md:grid-cols-2 md:items-stretch md:gap-6 md:p-8">
       <div className="relative overflow-hidden rounded-xl">
         <video
           preload="metadata"
@@ -33,7 +33,7 @@ const Trusted = () => {
         <div className="mt-4 grid grid-cols-2 border-t border-white/15">
           {STATS.map((stat, i) => (
             <div
-              key={stat.value}
+              key={stat.label}
               className={cn(
                 "flex flex-col items-center justify-center gap-2 border-white/15 px-6 py-10 text-center",
                 i % 2 === 0 && "border-r",

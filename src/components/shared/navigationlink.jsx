@@ -46,7 +46,7 @@ export function NavigationMenuLinks({ onLinkClick }) {
             asChild
             className="px-3 py-1 text-lg md:text-sm text-black dark:text-white hover:text-green-500 transition-colors"
           >
-            <Link href="/solutions" onClick={onLinkClick}>
+            <Link href="#projects" onClick={onLinkClick}>
               Our Projects
             </Link>
           </NavigationMenuLink>
@@ -58,7 +58,7 @@ export function NavigationMenuLinks({ onLinkClick }) {
             asChild
             className="px-3 py-1 text-lg md:text-sm text-black dark:text-white hover:text-green-500 transition-colors"
           >
-            <Link href="/pricing" onClick={onLinkClick}>
+            <Link href="#testimonials" onClick={onLinkClick}>
               Testimonials
             </Link>
           </NavigationMenuLink>
@@ -71,7 +71,7 @@ export function NavigationMenuLinks({ onLinkClick }) {
             asChild
             className="px-3 py-1 text-lg md:text-sm text-black dark:text-white hover:text-green-500 transition-colors"
           >
-            <Link href="/pricing" onClick={onLinkClick}>
+            <Link href="#about" onClick={onLinkClick}>
               About Us
             </Link>
           </NavigationMenuLink>

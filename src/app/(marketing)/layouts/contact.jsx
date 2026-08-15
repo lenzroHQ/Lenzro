@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Linkedin, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Item } from "@radix-ui/react-dropdown-menu";
 const BUDGET_OPTIONS = [
   "10,000ksh - 30,000ksh",
   "35k - 40k",
@@ -14,15 +15,17 @@ const BUDGET_OPTIONS = [
 const TEAM = [
   {
     name: "Yussuf Hassan",
+    img: "/yusuuf.jpeg",
     role: "Founder",
-    email: "yussuf@lenzro.com",
+    email: "team@lenzro.com",
     linkedin: null,
     prompt: "Have a project to discuss?",
   },
   {
     name: "Abdiaziz Mohamed",
+    img: "/me.jpeg",
     role: "Co-Founder",
-    email: "abdiaziz@lenzro.com",
+    email: "team@lenzro.com",
     linkedin: null,
     prompt: "Have a project to discuss?",
   },
@@ -60,10 +63,14 @@ const Contact = () => {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        throw new Error(data.error || "Something went wrong. Please try again.");
+        throw new Error(
+          data.error || "Something went wrong. Please try again.",
+        );
       }
 
-      toast.success("Message sent — we'll get back to you within 1–2 business days.");
+      toast.success(
+        "Message sent — we'll get back to you within 1–2 business days.",
+      );
       setForm(INITIAL_FORM);
     } catch (err) {
       toast.error(err.message || "Something went wrong. Please try again.");
@@ -174,8 +181,8 @@ const Contact = () => {
                 <ArrowRight className="size-4" />
               </Button>
               <p className="text-xs text-neutral-500">
-                I personally review every inquiry and reply within 1–2
-                business days.
+                I personally review every inquiry and reply within 1–2 business
+                days.
               </p>
             </div>
           </form>
@@ -189,7 +196,10 @@ const Contact = () => {
                 <p className="text-xl font-medium">{person.prompt}</p>
                 <div className="flex items-center gap-4">
                   <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-neutral-800 text-sm font-semibold">
-                    {initials(person.name)}
+                    <img
+                      src={person.img}
+                      className="rounded-full size-14 object-cover"
+                    />
                   </div>
                   <div className="min-w-0">
                     <p className="font-medium">{person.name}</p>

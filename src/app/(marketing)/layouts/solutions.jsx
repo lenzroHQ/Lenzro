@@ -91,10 +91,10 @@ const CaseCard = ({ project, progress, range }) => {
     >
       <motion.div
         style={{ scale, opacity }}
-        className="relative w-full  p-5 border-zinc-500 origin-top bg-white"
+        className="relative w-full  md:p-5 border-zinc-500 origin-top bg-white"
       >
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
-          <div className="aspect-4/3 w-full overflow-hidden rounded-2xl bg-neutral-100">
+          <div className="aspect-4/3 w-full overflow-hidden rounded-sm md:rounded-2xl bg-neutral-100">
             <img
               src={project.image}
               alt={project.title}
@@ -165,7 +165,7 @@ const Solutions = () => {
   });
 
   return (
-    <section className="w-full px-2 bg-white sm:px-4 md:px-8 py-10">
+    <section id="projects" className="w-full px-2 bg-white sm:px-4 md:px-8 py-10">
       <div className="px-5">
         <p className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
           Featured Cases

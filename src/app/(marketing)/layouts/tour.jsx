@@ -51,7 +51,7 @@ const SERVICES = [
 
 const Tour = () => {
   return (
-    <div className="relative w-full overflow-clip p-4">
+    <div id="services" className="relative w-full overflow-clip p-4">
       <div className="flex flex-col md:flex-row md:items-center justify-between">
         <div className="header space-y-4">
           <h1 className="display-lg">
